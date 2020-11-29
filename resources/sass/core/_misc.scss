@@ -1,0 +1,275 @@
+@import "variables";
+@import "theme-colors";
+
+body, html {
+  overflow-x: hidden;
+  font-family: $type-1;
+  padding-right: 0 !important;
+  font-size: $default-font-size;
+  color: var(--default-font-color);
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: lightgray;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: darkgray;
+    border-radius: 5px;
+  }
+}
+
+*:-moz-full-screen,
+*:-webkit-full-screen,
+*:fullscreen *:-ms-fullscreen {
+  overflow: auto;
+}
+
+a {
+  text-decoration: none !important;
+
+  &.text-muted {
+    &:hover {
+      color: $brand-color !important;
+    }
+  }
+}
+
+hr {
+  border-color: var(--default-border-color);
+}
+
+span {
+  font-size: $default-font-size;
+}
+
+.container-scroller {
+  overflow: hidden;
+  min-height: 105vh;
+  background-color: var(--base-color);
+}
+
+.table {
+  color: var(--default-font-color);
+}
+
+.bg-brand-color {
+  background-color: $brand-color !important;
+}
+
+.primary-text-color {
+  color: $brand-color !important;
+}
+
+.primary-card-color {
+  background-color: var(--default-card-bg) !important;
+}
+
+.default-font-color {
+  color: var(--default-font-color) !important;
+}
+
+.default-base-color {
+  background-color: var(--base-color);
+}
+
+.white-base-color {
+  background-color: var(--white-base-color);
+}
+
+.font-size-default {
+  font-size: $default-font-size !important;
+}
+
+.font-size-90 {
+  font-size: 90% !important;
+}
+
+.font-size-80 {
+  font-size: 80% !important;
+}
+
+.font-size-70 {
+  font-size: 70% !important;
+}
+
+.font-size-75 {
+  font-size: 75% !important;
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+.loading-opacity {
+  opacity: 0.4;
+}
+
+.h-fit-content {
+  height: fit-content;
+}
+
+.justify-content-flex-end {
+  justify-content: flex-end;
+}
+
+.schedule-divider {
+  &:before {
+    content: '';
+    width: 20px;
+    height: 2px;
+    margin: 0 10px 0 8px;
+    display: inline-block;
+    background-color: $text-muted;
+  }
+}
+
+.custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: $default-scrollbar-width;
+    height: $default-scrollbar-width;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 5px;
+  }
+
+  &:hover {
+    &::-webkit-scrollbar-thumb {
+      background: var(--scrollbar-thumb-color);
+
+      &:hover {
+        background-color: var(--scrollbar-thumb-hover-color);
+      }
+    }
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
+.cursor-grab {
+  cursor: grab !important;
+}
+
+/*Loader Design*/
+.spinner-bounce {
+  &.brand-color {
+    span {
+      background-color: $brand-color !important;
+    }
+  }
+
+  &.white-color {
+    span {
+      background-color: $white !important;
+    }
+  }
+}
+
+/*Default Padding & Margin Styles*/
+.p-primary {
+  padding: $default-padding-margin !important;
+}
+
+.px-primary {
+  padding-right: $default-padding-margin !important;
+  padding-left: $default-padding-margin !important;
+}
+
+.py-primary {
+  padding-top: $default-padding-margin !important;
+  padding-bottom: $default-padding-margin !important;
+}
+
+.pt-primary {
+  padding-top: $default-padding-margin !important;
+}
+
+.pr-primary {
+  padding-right: $default-padding-margin !important;
+}
+
+.pb-primary {
+  padding-bottom: $default-padding-margin !important;
+}
+
+.pl-primary {
+  padding-left: $default-padding-margin !important;
+}
+
+.py-half-primary {
+  padding-top: $default-padding-margin/2 !important;
+  padding-bottom: $default-padding-margin/2 !important;
+}
+
+.m-primary {
+  margin: $default-padding-margin !important;
+}
+
+.mt-primary {
+  margin-top: $default-padding-margin !important;
+}
+
+.mr-primary {
+  margin-right: $default-padding-margin !important;
+}
+
+.mb-primary {
+  margin-bottom: $default-padding-margin !important;
+}
+
+.ml-primary {
+  margin-left: $default-padding-margin !important;
+}
+
+.mx-primary {
+  margin-left: $default-padding-margin !important;
+  margin-right: $default-padding-margin !important;
+}
+
+.my-primary {
+  margin-top: $default-padding-margin !important;
+  margin-bottom: $default-padding-margin !important;
+}
+
+.mx-minus-primary {
+  margin-left: -2rem;
+  margin-right: -2rem;
+}
+
+/*Override Bootstrap Styles*/
+.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col, .col-auto, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm, .col-sm-auto, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md, .col-md-auto, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg, .col-lg-auto, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl, .col-xl-auto {
+  padding-left: $bootstrap-column-padding;
+  padding-right: $bootstrap-column-padding;
+}
+
+.border, .border-top, .border-right, .border-bottom, .border-left {
+  border-color: var(--default-border-color) !important;
+}
+
+.spinner-border, .spinner-grow {
+  vertical-align: middle;
+}
+
+.spinner-border {
+  border-width: 0.1em !important;
+}
+
+.shadow {
+  box-shadow: var(--default-box-shadow) !important;
+}
+
+.text-warning{
+  color: $warning-color !important;
+}

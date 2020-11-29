@@ -1,0 +1,28 @@
+@import "variables";
+@import "theme-colors";
+
+.dropzone {
+  min-height: 150px;
+  padding: 20px 20px;
+  border-radius: $default-radius;
+  border: 1px dashed $brand-color;
+  background: var(--form-control-bg);
+
+  svg {
+    width: 80px;
+    height: 80px;
+  }
+
+  .dz-preview {
+    &.dz-image-preview {
+      border-radius: 20px;
+      background: transparent !important;
+    }
+    .dz-details {
+      .dz-filename {
+        border-radius: 20px;
+        overflow: hidden !important;
+      }
+    }
+  }
+}

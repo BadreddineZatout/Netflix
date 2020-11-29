@@ -6,22 +6,21 @@
                     <div class="card-header bg-primary text-white">Ajouter un type de panne</div>
                     <div class="card-body">
                         <form @submit="storePanne">
-                            <!-- <input type="hidden" name="_token" :value="csrf"> -->
                             <div class="col-sm-6 mt-2">
                                 <label for="panne">type de Panne</label>
-                                <input type="text" id="panne" name="panne">
+                                <input type="text" id="panne" name="panne" v-model="options_pannes.data.panne">
                             </div>
                             <div class="form-group row ml-2 mt-2">
                                 <div class="col-md-3 mt-2">
-                                    <input type="radio" id="green" name="color" value="Green">
+                                    <input type="radio" id="green" name="color" value="Green" v-model="options_pannes.data.color">
                                     <label for="green">Vert</label>
                                 </div>
                                 <div class="col-md-3 mt-2">
-                                    <input type="radio" id="yellow" name="color" value="Yellow">
+                                    <input type="radio" id="yellow" name="color" value="Yellow" v-model="options_pannes.data.color">
                                     <label for="yellow">Jaune</label>
                                 </div>
                                 <div class="col-md-3 mt-2">
-                                    <input type="radio" id="red" name="color" value="Red">
+                                    <input type="radio" id="red" name="color" value="Red" v-model="options_pannes.data.color">
                                     <label for="red">Rouge</label>
                                 </div>
                             </div>
@@ -60,10 +59,9 @@
                     <div class="card-header bg-primary text-white">Ajouter une modalité de paiement</div>
                     <div class="card-body">
                         <form @submit="storeModalite">
-                            <!-- <input type="hidden" name="_token" :value="csrf"> -->
                             <div class="col-8 mt-2">
                                 <label for="modalite">Modalite de paiement</label>
-                                <input type="text" id="modalite" name="modalite">
+                                <input type="text" id="modalite" name="modalite" v-model="options_modalites.data.modalite">
                             </div>
                             <div class="col-6 mt-2">
                                 <button type="submit" class="btn btn-primary">Ajouter</button>
@@ -102,11 +100,11 @@ export default {
             pannes: [],
             modalites: [],
             options_pannes: {
-                url: "",
+                url: actions.STORE_PANNES,
                 data: {}
             },
-            options_modalite:{
-                url: "",
+            options_modalites:{
+                url: actions.STORE_MODALITES,
                 data: {}
             }
         }
@@ -130,10 +128,22 @@ export default {
                     });
         },
         storePanne(e){
-
+            e.preventDefault();
+                axios.post(
+                    this.options_pannes.url,this.options_pannes.data
+                    ).then(function(response){
+                        window.location.replace('/dashboard/settings');
+                    });
         },
         storeModalite(e){
-
+            e.preventDefault();
+            console.log(this.options_modalites.url);
+            console.log(this.options_modalites.data);
+                axios.post(
+                    this.options_modalites.url,this.options_modalites.data
+                    ).then(function(response){
+                        window.location.replace('/dashboard/settings');
+                    });
         }
     }
 }

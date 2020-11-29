@@ -6,7 +6,6 @@
                     <div class="card-header bg-primary text-white">Choisir un offre</div>
                     <div class="card-body">
                         <form @submit="store">
-                            <input type="hidden" name="_token" :value="csrf">
                             <div class="col-md-6 mt-2">
                                 <label class="mr-3" for="email">Email</label>
                                 <input type="text" id="email" name="email" v-model="options.data.email">

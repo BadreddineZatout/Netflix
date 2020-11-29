@@ -23,6 +23,6 @@ Route::get('default-dashboard-pannes', [DashboardController::class, 'pannes']);
 Route::get('default-dashboard-modalites', [DashboardController::class, 'modalites']);
 
 Route::post('/revendeur', [DashboardController::class, 'store']);
-Route::post('/pannes', [DashboardController::class, 'store']);
-Route::post('/modalites', [DashboardController::class, 'store']);
+Route::post('/pannes', [DashboardController::class, 'storePannes']);
+Route::post('/modalites', [DashboardController::class, 'storeModalites']);
 

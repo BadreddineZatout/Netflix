@@ -12,7 +12,7 @@ export const PANNES = 'default-dashboard-pannes';
 export const MODALITES = 'default-dashboard-modalites';
 export const STORE = '/revendeur';
 export const STORE_PANNES = '/pannes';
-export const STORE_MODALITES = '/modalite';
+export const STORE_MODALITES = '/modalites';
 
 //Profile
 export const MY_PROFILE = '/my-profile';

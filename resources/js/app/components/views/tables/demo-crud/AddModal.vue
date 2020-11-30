@@ -8,69 +8,76 @@
             <app-overlay-loader v-if="preloader"/>
             <form class="mb-0"
                   :class="{'loading-opacity': preloader}"
-                  ref="form" :data-url='selectedUrl ? `crud/${inputs.id}` : `crud`'>
-                <div class="form-group row align-items-center">
-                    <label for="inputs_name" class="col-sm-3 mb-0">
-                        {{ $t('name') }}
-                    </label>
-                    <app-input id="inputs_name"
-                               class="col-sm-9"
-                               type="text"
-                               v-model="inputs.name"
-                               :placeholder="$t('text_type_input')"
-                               :required="true"/>
-
-                </div>
+                  ref="form">
+                  
                 <div class="form-group row align-items-center">
                     <label for="inputs_email" class="col-sm-3 mb-0">
                         {{ $t('email') }}
                     </label>
                     <app-input id="inputs_email"
                                class="col-sm-9"
-                               type="email"
+                               type="text"
                                v-model="inputs.email"
-                               :placeholder="$t('email_type_input')"
+                               :placeholder="rowData.email"
+                               :required="true"/>
+
+                </div>
+                <div class="form-group row align-items-center">
+                    <label for="inputs_pdw" class="col-sm-3 mb-0">
+                        {{ $t('password') }}
+                    </label>
+                    <app-input id="inputs_pdw"
+                               class="col-sm-9"
+                               type="text"
+                               v-model="inputs.password"
+                               :placeholder="rowData.password"
+                               :required="true"/>
+
+                </div>
+                <div class="form-group row align-items-center">
+                    <label class="col-sm-3 mb-0">Produits</label>
+                    <div class="col-sm-9">
+                        <div v-for="produit in produits" v-bind:key="produit.id" class="col-md-6 mt-2">
+                            <input type="radio" :id="produit.id" name="prod" :value="produit.duree + ' ' + ((produit.duree > 1) ? 'Months': 'Month')" v-model="inputs.produit">
+                            <label  :for="produit.id">{{produit.nom}}</label>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="form-group row align-items-center">
+                    <label for="inputs_dd" class="col-sm-3 mb-0">
+                        {{ $t('Date de debut') }}
+                    </label>
+                    <app-input id="inputs_dd"
+                               class="col-sm-9"
+                               type="text"
+                               v-model="inputs.dateDebut"
+                               :placeholder="rowData.dateDebut"
                                :required="true"/>
                 </div>
                 <div class="form-group row align-items-center">
-                    <label for="inputs_phone" class="col-sm-3 mb-0">
-                        {{ $t('contact_number') }}
-                    </label>
-                    <app-input id="inputs_phone"
-                               class="col-sm-9"
-                               type="tel-input"
-                               v-model="phone"
-                               :placeholder="$t('type_contact_number')"/>
-                </div>
-                <div class="form-group row align-items-center">
-                    <label for="inputs_status" class="col-sm-3 mb-0">
-                        {{ $t('status') }}
-                    </label>
-                    <app-input id="inputs_status"
-                               class="col-sm-9"
-                               type="select"
-                               v-model="inputs.status"
-                               :list="statusLists"/>
-                </div>
-                <div class="form-group row align-items-center">
-                    <label for="inputs_age" class="col-sm-3 mb-0">
-                        {{ $t('age') }}
-                    </label>
-                    <app-input id="inputs_age"
-                               class="col-sm-9"
-                               type="number"
-                               :max-number="120"
-                               v-model="inputs.age"
-                               :placeholder="$t('type_age')"/>
-                </div>
-                <div class="form-group row align-items-center mb-0">
                     <label class="col-sm-3 mb-0">
-                        {{ $t('gender') }}
+                        {{ $t('Resultat de creation') }}
                     </label>
-                    <app-input class="col-sm-9"
-                               type="radio"
-                               v-model="inputs.gender"
-                               :list="genderLists"/>
+                    <div class="col-sm-9">
+                        <input type="radio" name="rc" id="rc1" value="pending" v-model="inputs.resultatcreation">
+                        <label class="mr-3" for="rc1">Pending</label>
+                        <input type="radio" name="rc" id="rc2" value="created" v-model="inputs.resultatcreation">
+                        <label class="mr-3" for="rc2">Created</label>
+                    </div>
+                </div>
+                <div class="form-group row align-items-center">
+                    <label for="inputs_etat" class="col-sm-3 mb-0">
+                        {{ $t('Etat') }}
+                    </label>
+                    <div class="col-sm-9">
+                        <input type="radio" name="etat" id="e1" value="inactif" v-model="inputs.etat">
+                        <label class="mr-3" for="e1">Inactif</label>
+                        <input type="radio" name="etat" id="e1" value="actif" v-model="inputs.etat">
+                        <label class="mr-3" for="e2">Actif</label>
+                        <input type="radio" name="etat" id="e2" value="panne" v-model="inputs.etat">
+                        <label class="mr-3" for="e3">Panne</label>
+                    </div>
                 </div>
             </form>
         </template>
@@ -85,40 +92,37 @@
         name: "AddModal",
         mixins: [FormMixin, ModalMixin],
         props: {
-            tableId: String
+            tableId: String,
+            rowData: {}
         },
         data() {
             return {
-                preloader: false,
+                preloader: true,
                 inputs: {
-                    gender: 'male',
+                    
                 },
-                phone: '',
-                statusLists: [
-                    {id: '', value: "Choose One",},
-                    {id: 'active', value: "Active",},
-                    {id: 'inactive', value: "Inactive",},
-                    {id: 'invited', value: "Invite",},
-                ],
-                genderLists: [
-                    {id: 'male', value: "Male"},
-                    {id: 'female', value: "Female"},
-                    {id: 'other', value: "Other"},
-                ],
+                produits: [],
                 modalId: 'demo-add-edit-modal',
                 modalTitle: this.$t('add'),
             }
         },
         created() {
+            this.getProduits();
+            this.inputs = this.rowData;
             if (this.selectedUrl) {
                 this.modalTitle = this.$t('edit');
-                this.preloader = true;
+                this.preloader = false;
             }
         },
         methods: {
+            getProduits(){
+                let url = 'default-dashboard-produits';
+                    this.axiosGet(url).then(response =>{
+                        this.produits = response.data;    
+                    });
+            },
             submit() {
-                this.inputs.phone = this.phone;
-                this.save(this.inputs);
+                this.save(this.selectedUrl, this.inputs);
             },
             afterSuccess(response) {
                 this.$toastr.s(response.data.message);

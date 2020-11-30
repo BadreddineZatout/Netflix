@@ -4,22 +4,13 @@
             <div class="col-sm-12 col-md-6">
                 <app-breadcrumb :page-title="title"/>
             </div>
-            <div class="col-sm-12 col-md-6">
-                <div class="float-md-right mb-3 mb-sm-3 mb-md-0">
-                    <button type="button"
-                            class="btn btn-primary btn-with-shadow"
-                            data-toggle="modal"
-                            @click="openAddEditModal">
-                        {{ $t('add') }}
-                    </button>
-                </div>
-            </div>
         </div>
 
         <app-table :id="tableId" :options="options" @action="getListAction"/>
 
         <app-add-modal v-if="isAddEditModalActive"
                        :table-id="tableId"
+                       :rowData ="rowData"
                        :selected-url="selectedUrl"
                        @close-modal="closeAddEditModal"/>
 
@@ -89,8 +80,9 @@
 
                     this.openDeleteModal();
                 } else if (actionObj.title == this.$t('edit')) {
-
-                    this.selectedUrl = `${actions.DATATABLE_DATA}/${rowData.id}`;
+                    if(this.options.name = "AbonnementsTable") this.selectedUrl = `/update-abonnement/${this.rowData.id}`;
+                    else if(this.options.name = "PannesTable") this.selectedUrl = `/update-panne-abonnement/${this.rowData.id}`;
+                    else this.selectedUrl = `/update-transaction/${this.rowData.id}`;
                     this.openAddEditModal();
                 }
             },
@@ -106,10 +98,14 @@
              * confirmed $emit form confirmation modal
              */
             confirmed() {
-                let url = `${actions.PANNES_ABONNEMENT}/${this.rowData.id}`;
+                let url;
+                if(this.options.name = "AbonnementsTable") url = `/delete-abonnement/${this.rowData.id}`;
+                else if(this.options.name = "PannesTable") url = `/delete-panne-abonnement/${this.rowData.id}`;
+                else url = `/delete-transaction/${this.rowData.id}`;
                 this.deleteLoader=true;
                 this.axiosDelete(url)
                     .then(response => {
+                        console.log(response);
                         this.deleteLoader= false;
                         $("#demo-delete").modal('hide');
                         this.cancelled();

@@ -72,6 +72,11 @@ export const TableHelpers = {
                         key: 'email'
                     },
                     {
+                        title: this.$t('password'),
+                        type: 'text',
+                        key: 'password'
+                    },
+                    {
                         title: this.$t('produit'),
                         type: 'text',
                         key: 'produit'

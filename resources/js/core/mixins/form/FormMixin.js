@@ -20,7 +20,7 @@ export const FormMixin = {
 
     created() {
         if (this.selectedUrl) {
-            this.getEditData(this.selectedUrl);
+            //this.getEditData(this.selectedUrl);
         }
     },
     methods: {
@@ -48,10 +48,8 @@ export const FormMixin = {
         /**
          * trigger point for db
          */
-        save(submitData) {
-
-            let url = this.$refs.form.dataset["url"],
-                reqType = "";
+        save(url, submitData) {
+            let reqType = "";
             if (this.selectedUrl) {
                 reqType = "patch";
             } else {

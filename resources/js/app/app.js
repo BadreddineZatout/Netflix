@@ -82,6 +82,8 @@ Vue.component('group-of-users',  require('./components/views/user-and-roles/role
 // Demo Crud
 Vue.component('app-demo-crud',  require('./components/views/tables/demo-crud/Index').default);
 Vue.component('app-add-modal',  require('./components/views/tables/demo-crud/AddModal').default);
+Vue.component('app-add-modalT',  require('./components/views/tables/demo-crud/AddModalT').default);
+Vue.component('app-add-modalP',  require('./components/views/tables/demo-crud/AddModalP').default);
 
 //overlay loader
 Vue.component('app-overlay-loader', require('../core/components/preloders/OverlayLoader').default);

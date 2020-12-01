@@ -375,6 +375,14 @@
                         this.dataTableInit();
                     }
                 });
+                
+                this.$hub.$on('DeletOrEdit', (value=true)=>{
+                    if (value) {
+                        this.activePaginationPage = 1;
+                        this.selectedRows = [];
+                        this.dataTableInit();
+                    }
+                });
             },
 
             /**

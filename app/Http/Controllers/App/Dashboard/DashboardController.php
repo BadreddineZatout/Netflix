@@ -34,7 +34,7 @@ class DashboardController extends Controller
     }
     public function pannesAbonnement()
     {
-        return PanneAbonnement::select('panne_abonnements.id', 'abonnements.email', 'panne_abonnements.date', 'panne_abonnements.heure', 'pannes.panne')->join('abonnements', 'abonnements.id', '=', 'panne_abonnements.abonnement')->join('pannes', 'pannes.id', '=', 'panne_abonnements.panne')->get();
+        return PanneAbonnement::select('panne_abonnements.id', 'abonnements.email', 'panne_abonnements.date', 'panne_abonnements.heure', 'pannes.panne', 'panne_abonnements.Etat')->join('abonnements', 'abonnements.id', '=', 'panne_abonnements.abonnement')->join('pannes', 'pannes.id', '=', 'panne_abonnements.panne')->get();
     }
     public function produits()
     {
@@ -85,7 +85,13 @@ class DashboardController extends Controller
     }
     public function updatePanneAbonnement(Request $request, $id)
     {
-
+        $pa = PanneAbonnement::findOrfail($id);
+        $p = Panne::select('id')->where('panne', $request->panne)->get();
+        $pa->date = date("Y-m-d", strtotime($request->date));
+        $pa->heure = date("H:i:s", strtotime($request->heure));
+        $pa->panne = $p[0]->id;
+        $pa->Etat = $request->Etat;
+        return $pa->save();
     }
     public function updateAbonnement(Request $request, $id)
     {

@@ -37,10 +37,9 @@
                 <div class="form-group row align-items-center">
                     <label class="col-sm-3 mb-0">Produits</label>
                     <div class="col-sm-9">
-                        <div v-for="produit in produits" v-bind:key="produit.id" class="col-md-6 mt-2">
-                            <input type="radio" :id="produit.id" name="prod" :value="produit.duree + ' ' + ((produit.duree > 1) ? 'Months': 'Month')" v-model="inputs.produit">
-                            <label  :for="produit.id">{{produit.nom}}</label>
-                        </div>
+                        <select name="prod" id="prod" v-model="inputs.produit" class="form-control col-md-6 mt-2">
+                            <option v-for="produit in produits" v-bind:key="produit.id" :value="produit.duree + ' ' + ((produit.duree > 1) ? 'Months': 'Month')">{{produit.nom}}</option>
+                        </select>
                     </div>
                     
                 </div>
@@ -73,9 +72,9 @@
                     <div class="col-sm-9">
                         <input type="radio" name="etat" id="e1" value="inactif" v-model="inputs.etat">
                         <label class="mr-3" for="e1">Inactif</label>
-                        <input type="radio" name="etat" id="e1" value="actif" v-model="inputs.etat">
+                        <input type="radio" name="etat" id="e2" value="actif" v-model="inputs.etat">
                         <label class="mr-3" for="e2">Actif</label>
-                        <input type="radio" name="etat" id="e2" value="panne" v-model="inputs.etat">
+                        <input type="radio" name="etat" id="e3" value="panne" v-model="inputs.etat">
                         <label class="mr-3" for="e3">Panne</label>
                     </div>
                 </div>
@@ -122,11 +121,12 @@
                     });
             },
             submit() {
-                this.save(this.selectedUrl, this.inputs);
+                this.saveEdit(this.selectedUrl, this.inputs);
             },
-            afterSuccess(response) {
-                this.$toastr.s(response.data.message);
-                this.$hub.$emit('reload-' + this.tableId);
+            afterSuccess(response){
+                this.$hub.$emit('DeletOrEdit');
+                // this.$toastr.s(response.data.message);
+                // setTimeout(this.$hub.$emit('DeletOrEdit'), 10000);
             },
 
             afterSuccessFromGetEditData(response) {

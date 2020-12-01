@@ -48,7 +48,21 @@ export const FormMixin = {
         /**
          * trigger point for db
          */
-        save(url, submitData) {
+        save(submitData) {
+
+            let url = this.$refs.form.dataset["url"],
+                reqType = "";
+            if (this.selectedUrl) {
+                reqType = "patch";
+            } else {
+                reqType = "post";
+            }
+            this.submitFromFixin(reqType, url, submitData);
+        },
+        /**
+         * save edited data 
+         */
+        saveEdit(url, submitData) {
             let reqType = "";
             if (this.selectedUrl) {
                 reqType = "patch";
@@ -92,13 +106,11 @@ export const FormMixin = {
                 }
 
                 axioscall.then((response) => {
-
                     //trigger after success
                     if (this.isFunction(this.afterSuccess))
                         this.afterSuccess(response);
 
                 }).catch(({response}) => {
-
                     //trigger after error
                     if (this.isFunction(this.afterError))
                         this.afterError(response);

@@ -26,6 +26,11 @@ export const TableHelpers = {
                         type: 'text',
                         key: 'panne'
                     },
+                    {
+                        title: this.$t('Etat'),
+                        type: 'text',
+                        key: 'Etat'
+                    },
                 ],
 
                 //TableTransactionsColumns

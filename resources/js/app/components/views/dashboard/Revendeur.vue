@@ -14,18 +14,15 @@
                                 <label class="mr-3" for="password">Mot de passe</label>
                                 <input type="password" id="password" name="password" v-model="options.data.password">
                             </div>
-                            <div class="form-group row ml-2 mt-2">
-                                <div v-for="produit in produits" v-bind:key="produit.id" class="col-md-6 mt-2">
-                                    <input type="radio" :id="produit.id" name="prod" :value="produit.duree + ' ' + ((produit.duree > 1) ? 'Months': 'Month')" v-model="options.data.produit">
-                                    <label  :for="produit.id">{{produit.nom}}</label>
-                                </div>
+                            <div class="col-md-6 mt-2 mb-5">
+                                <label class="mr-3" for="password">Produit</label>
+                                <select name="prod" id="prod" v-model="options.data.produit" class="form-control">
+                                    <option v-for="produit in produits" v-bind:key="produit.id" :value="produit.nom">{{produit.nom}}</option>
+                                </select>
                             </div>
-                            <div class="form-group row">
                                 <div class="col-md-6">
                                     <button type="submit" class="btn btn-primary">Confirmer la demande</button>
                                 </div>
-                            </div>
-
                         </form>
                     </div>
                 </div>

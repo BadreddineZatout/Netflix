@@ -6,81 +6,67 @@
                      @close-modal="closeModal">
         <template slot="body">
             <app-overlay-loader v-if="preloader"/>
-            <p>edit transactions</p>
-            <!-- <form class="mb-0"
+            <form class="mb-0"
                   :class="{'loading-opacity': preloader}"
                   ref="form">
-                  
                 <div class="form-group row align-items-center">
-                    <label for="inputs_email" class="col-sm-3 mb-0">
-                        {{ $t('email') }}
-                    </label>
-                    <app-input id="inputs_email"
-                               class="col-sm-9"
-                               type="text"
-                               v-model="inputs.email"
-                               :placeholder="rowData.email"
-                               :required="true"/>
-
-                </div>
-                <div class="form-group row align-items-center">
-                    <label for="inputs_pdw" class="col-sm-3 mb-0">
-                        {{ $t('password') }}
-                    </label>
-                    <app-input id="inputs_pdw"
-                               class="col-sm-9"
-                               type="text"
-                               v-model="inputs.password"
-                               :placeholder="rowData.password"
-                               :required="true"/>
-
-                </div>
-                <div class="form-group row align-items-center">
-                    <label class="col-sm-3 mb-0">Produits</label>
+                    <label class="col-sm-3 mb-0">Emeteur</label>
                     <div class="col-sm-9">
-                        <div v-for="produit in produits" v-bind:key="produit.id" class="col-md-6 mt-2">
-                            <input type="radio" :id="produit.id" name="prod" :value="produit.duree + ' ' + ((produit.duree > 1) ? 'Months': 'Month')" v-model="inputs.produit">
-                            <label  :for="produit.id">{{produit.nom}}</label>
-                        </div>
-                    </div>
-                    
-                </div>
-                <div class="form-group row align-items-center">
-                    <label for="inputs_dd" class="col-sm-3 mb-0">
-                        {{ $t('Date de debut') }}
-                    </label>
-                    <app-input id="inputs_dd"
-                               class="col-sm-9"
-                               type="text"
-                               v-model="inputs.dateDebut"
-                               :placeholder="rowData.dateDebut"
-                               :required="true"/>
-                </div>
-                <div class="form-group row align-items-center">
-                    <label class="col-sm-3 mb-0">
-                        {{ $t('Resultat de creation') }}
-                    </label>
-                    <div class="col-sm-9">
-                        <input type="radio" name="rc" id="rc1" value="pending" v-model="inputs.resultatcreation">
-                        <label class="mr-3" for="rc1">Pending</label>
-                        <input type="radio" name="rc" id="rc2" value="created" v-model="inputs.resultatcreation">
-                        <label class="mr-3" for="rc2">Created</label>
+                        <select name="emet" id="emet" v-model="inputs.emeteur" class="form-control col-md-6 mt-2">
+                            <option v-for="emeteur in comptes" v-bind:key="emeteur.id" :value="emeteur.nom">{{emeteur.nom}}</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group row align-items-center">
-                    <label for="inputs_etat" class="col-sm-3 mb-0">
-                        {{ $t('Etat') }}
-                    </label>
+                    <label class="col-sm-3 mb-0">Emeteur</label>
                     <div class="col-sm-9">
-                        <input type="radio" name="etat" id="e1" value="inactif" v-model="inputs.etat">
-                        <label class="mr-3" for="e1">Inactif</label>
-                        <input type="radio" name="etat" id="e2" value="actif" v-model="inputs.etat">
-                        <label class="mr-3" for="e2">Actif</label>
-                        <input type="radio" name="etat" id="e3" value="panne" v-model="inputs.etat">
-                        <label class="mr-3" for="e3">Panne</label>
+                        <select name="recep" id="recep" v-model="inputs.recepteur" class="form-control col-md-6 mt-2">
+                            <option v-for="recepteur in comptes" v-bind:key="recepteur.id" :value="recepteur.nom">{{recepteur.nom}}</option>
+                        </select>
                     </div>
                 </div>
-            </form> -->
+                <div class="form-group row align-items-center">
+                    <label for="inputs_d" class="col-sm-3 mb-0">
+                        {{ $t('Date') }}
+                    </label>
+                    <app-input id="inputs_d"
+                               class="col-sm-9"
+                               type="text"
+                               v-model="inputs.date"
+                               :placeholder="rowData.date"
+                               :required="true"/>
+                </div>
+                <div class="form-group row align-items-center">
+                    <label for="inputs_h" class="col-sm-3 mb-0">
+                        {{ $t('Heure') }}
+                    </label>
+                    <app-input id="inputs_h"
+                               class="col-sm-9"
+                               type="text"
+                               v-model="inputs.heure"
+                               :placeholder="rowData.heure"
+                               :required="true"/>
+                </div>
+                <div class="form-group row align-items-center">
+                    <label for="inputs_h" class="col-sm-3 mb-0">
+                        {{ $t('Montant') }}
+                    </label>
+                    <app-input id="inputs_h"
+                               class="col-sm-9"
+                               type="text"
+                               v-model="inputs.montant"
+                               :placeholder="rowData.montant.toString()"
+                               :required="true"/>
+                </div>
+                <div class="form-group row align-items-center">
+                    <label class="col-sm-3 mb-0">Modalite de Paiement</label>
+                    <div class="col-sm-9">
+                        <select name="mod" id="mod" v-model="inputs.modalitePaiement" class="form-control col-md-6 mt-2">
+                            <option v-for="modalite in modalites" v-bind:key="modalite.id" :value="modalite.modalitePaiement">{{modalite.modalitePaiement}}</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
         </template>
     </dashboard-modal>
 </template>
@@ -102,13 +88,15 @@
                 inputs: {
                     
                 },
-                produits: [],
+                modalites: [],
+                comptes: [],
                 modalId: 'demo-add-edit-modal',
                 modalTitle: this.$t('add'),
             }
         },
         created() {
-            this.getProduits();
+            this.getmodalites();
+            this.getcomptes();
             this.inputs = this.rowData;
             if (this.selectedUrl) {
                 this.modalTitle = this.$t('edit');
@@ -116,18 +104,25 @@
             }
         },
         methods: {
-            getProduits(){
-                let url = 'default-dashboard-produits';
+            getmodalites(){
+                let url = 'default-dashboard-modalites';
                     this.axiosGet(url).then(response =>{
-                        this.produits = response.data;    
+                        this.modalites = response.data;    
+                    });
+            },
+            getcomptes(){
+                let url = 'default-dashboard-comptes';
+                    this.axiosGet(url).then(response =>{
+                        this.comptes = response.data;    
                     });
             },
             submit() {
                 this.saveEdit(this.selectedUrl, this.inputs);
             },
             afterSuccess(response) {
-                this.$toastr.s(response.data.message);
-                setTimeout(this.$hub.$emit('DeletOrEdit'), 10000);
+                this.$hub.$emit('DeletOrEdit')
+                // this.$toastr.s(response.data.message);
+                // setTimeout(this.$hub.$emit('DeletOrEdit'), 10000);
             },
 
             afterSuccessFromGetEditData(response) {

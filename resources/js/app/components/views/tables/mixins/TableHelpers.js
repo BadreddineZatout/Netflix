@@ -7,22 +7,22 @@ export const TableHelpers = {
 
                 [
                     {
-                        title: this.$t('email'),
+                        title: this.$t('Email'),
                         type: 'text',
                         key: 'email'
                     },
                     {
-                        title: this.$t('date'),
+                        title: this.$t('Date'),
                         type: 'text',
                         key: 'date'
                     },
                     {
-                        title: this.$t('heure'),
+                        title: this.$t('Heure'),
                         type: 'text',
                         key: 'heure'
                     },
                     {
-                        title: this.$t('panne'),
+                        title: this.$t('Panne'),
                         type: 'text',
                         key: 'panne'
                     },
@@ -37,32 +37,32 @@ export const TableHelpers = {
 
                 [
                     {
-                        title: this.$t('emeteur'),
+                        title: this.$t('Emeteur'),
                         type: 'text',
                         key: 'emeteur'
                     },
                     {
-                        title: this.$t('recepteur'),
+                        title: this.$t('Recepteur'),
                         type: 'text',
                         key: 'recepteur'
                     },
                     {
-                        title: this.$t('date'),
+                        title: this.$t('Date'),
                         type: 'text',
                         key: 'date'
                     },
                     {
-                        title: this.$t('heure'),
+                        title: this.$t('Heure'),
                         type: 'text',
                         key: 'heure'
                     },
                     {
-                        title: this.$t('montant'),
+                        title: this.$t('Montant'),
                         type: 'text',
                         key: 'montant'
                     },
                     {
-                        title: this.$t('modalitePaiement'),
+                        title: this.$t('Modalite de Paiement'),
                         type: 'text',
                         key: 'modalitePaiement'
                     },
@@ -72,92 +72,64 @@ export const TableHelpers = {
 
                 [
                     {
-                        title: this.$t('email'),
+                        title: this.$t('Email'),
                         type: 'text',
                         key: 'email'
                     },
                     {
-                        title: this.$t('password'),
+                        title: this.$t('Mot de Passe'),
                         type: 'text',
                         key: 'password'
                     },
                     {
-                        title: this.$t('produit'),
+                        title: this.$t('Produit'),
                         type: 'text',
                         key: 'produit'
                     },
                     {
-                        title: this.$t('dateDebut'),
+                        title: this.$t('Date de Debut'),
                         type: 'text',
                         key: 'dateDebut'
                     },
                     {
-                        title: this.$t('datefin'),
+                        title: this.$t('Date de Fin'),
                         type: 'text',
                         key: 'datefin'
                     },
                     {
-                        title: this.$t('resultatcreation'),
+                        title: this.$t('Resultat de Creation'),
                         type: 'text',
                         key: 'resultatcreation'
                     },
                     {
-                        title: this.$t('etat'),
+                        title: this.$t('Etat'),
                         type: 'text',
                         key: 'etat'
                     },
                 ],
 
-
-                //tableColumns
+                //PanneTable
 
                 [
                     {
-                        title: this.$t('name'),
-                        type: 'text',
-                        key: 'name',
-                
+                        title: this.$t('Panne'),
+                        type:'text',
+                        key: 'panne'
                     },
                     {
-                        title: this.$t('email'),
-                        type: 'text',
-                        key: 'email',
-                
+                        title: this.$t('Color'),
+                        type:'text',
+                        key: 'color'
                     },
+                ],
+
+                //ModaliteTable
+
+                [
                     {
-                        title: this.$t('status'),
-                        type: 'custom-html',
-                        key: 'status',
-                        isVisible: true,
-                        modifier: (value) => {
-                            if (value) {
-                                let ClassName = 'danger';
-    
-                                if (value === 'active') ClassName = `success`;
-                                else if (value === 'invited') ClassName = `warning`;
-    
-                                return `<span class="badge badge-sm badge-pill badge-${ClassName}">${this.$t(value)}</span>`;
-                            }
-                        }
-                    },
-                    {
-                        title: this.$t('phone'),
-                        type: 'text',
-                        key: 'phone',
-                    },
-                    {
-                        title: this.$t('age'),
-                        type: 'text',
-                        key: 'age',
-                    },
-                    {
-                        title: this.$t('gender'),
-                        type: 'custom-html',
-                        key: 'gender',
-                        modifier: (value) => {
-                            return `<span>${this.$t(value)}</span>`
-                
-                        }
+                        title: this.$t('Modalite de Paiement'),
+                        type:'text',
+                        key: 'modalitePaiement'
                     },
                 ],
             ],

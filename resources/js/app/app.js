@@ -84,6 +84,8 @@ Vue.component('app-demo-crud',  require('./components/views/tables/demo-crud/Ind
 Vue.component('app-add-modal',  require('./components/views/tables/demo-crud/AddModal').default);
 Vue.component('app-add-modalT',  require('./components/views/tables/demo-crud/AddModalT').default);
 Vue.component('app-add-modalP',  require('./components/views/tables/demo-crud/AddModalP').default);
+Vue.component('app-edit-panne',  require('./components/views/tables/demo-crud/EditPanne').default);
+Vue.component('app-edit-modalite',  require('./components/views/tables/demo-crud/EditModalite').default);
 
 //overlay loader
 Vue.component('app-overlay-loader', require('../core/components/preloders/OverlayLoader').default);

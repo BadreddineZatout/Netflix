@@ -41,14 +41,6 @@
                             modalId: 'demo-delete',
                         }
                     ],
-                    // filters: [
-                    //     {
-                    //         "title": this.$t('date'),
-                    //         "type": "range-picker",
-                    //         "key": "date",
-                    //         "option": ["today", "thisMonth", "last7Days", "nextYear"]
-                    //     },
-                    // ],
                     showFilter: true,
                     showSearch: true,
                     paginationType: "pagination",

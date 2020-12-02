@@ -48,13 +48,20 @@ class DashboardController extends Controller
     {
         return Modalite_de_paiement::all();
     }
+    public function comptes()
+    {
+        return Compte::all();
+    }
     public function store(Request $request)
     {
         $d = $request->produit;
-        $produit = Produit::where('duree', intval(explode(' ', $d)[0]))->first(); 
+        $produit = Produit::where('nom', $d)->first(); 
         $abonn = new Abonnement();
         $startdate = date("Y-m-d");
+        $d = $produit->duree;
+        $tmp = ($d > 1) ? ' Months' : ' Month';
         $d = '+'.$d;
+        $d = '+' . $d . $tmp;
         $enddate = strtotime($d);
 
         $abonn->produit = $produit->id;
@@ -96,12 +103,14 @@ class DashboardController extends Controller
     public function updateAbonnement(Request $request, $id)
     {
         $d = $request->produit;
-        $produit = Produit::where('duree', intval(explode(' ', $d)[0]))->first(); 
+        $produit = Produit::where('nom', $d)->first(); 
         $abonn = Abonnement::findOrFail($id);
         $startdate = date("Y-m-d", strtotime($request->dateDebut));
-        $d = $request->dateDebut . ' +'.$d;
+        $d = $produit->duree;
+        $tmp = ($d > 1) ? ' Months' : ' Month';
+        $d = $request->dateDebut . ' +' . $d . $tmp;
         $enddate = date("Y-m-d", strtotime($d));
-
+        
         $abonn->produit = $produit->id;
         $abonn->dateDebut = $startdate;
         $abonn->datefin = $enddate;
@@ -118,7 +127,30 @@ class DashboardController extends Controller
     }
     public function updateTransaction(Request $request, $id)
     {
-
+        $emeteur = Compte::select('id')->where('nom', $request->emeteur)->get();
+        $recepteur = Compte::select('id')->where('nom', $request->recepteur)->get();
+        $modalite = Modalite_de_paiement::select('id')->where('modalitePaiement', $request->modalitePaiement)->get();
+        $t = Transaction::findOrFail($id);
+        $t->idCompteEmeteur = $emeteur[0]->id;
+        $t->idCompteRecepteur = $recepteur[0]->id;
+        $t->date = $request->date;
+        $t->heure = $request->heure;
+        $t->montant = intval($request->montant);
+        $t->modalitePaiement = $modalite[0]->id;
+        $t->save();
+    }
+    public function updatePanne(Request $request, $id)
+    {
+        $panne = Panne::findOrFail($id);
+        $panne->panne = $request->panne;
+        $panne->color = $request->color;
+        $panne->save();
+    }
+    public function updateModalite(Request $request, $id)
+    {
+        $modpaie = Modalite_de_paiement::findOrFail($id);
+        $modpaie->modalitePaiement = $request->modalitePaiement;
+        $modpaie->save();
     }
     public function deleteAbonnement($id)
     {
@@ -131,5 +163,13 @@ class DashboardController extends Controller
     public function deletePanneAbonnement($id)
     {
         PanneAbonnement::destroy($id);
+    }
+    public function deletePanne($id)
+    {
+        Panne::destroy($id);
+    }
+    public function deleteModalite($id)
+    {
+        Modalite_de_paiement::destroy($id);
     }
 }

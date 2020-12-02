@@ -23,6 +23,16 @@
                        :rowData ="rowData"
                        :selected-url="selectedUrl"
                        @close-modal="closeAddEditModal"/>
+        <app-edit-panne v-if="isAddEditModalActive && typeTable == 3"
+                       :table-id="tableId"
+                       :rowData ="rowData"
+                       :selected-url="selectedUrl"
+                       @close-modal="closeAddEditModal"/>
+        <app-edit-modalite v-if="isAddEditModalActive && typeTable == 4"
+                       :table-id="tableId"
+                       :rowData ="rowData"
+                       :selected-url="selectedUrl"
+                       @close-modal="closeAddEditModal"/>
 
         <dashboard-delete-modal v-if="deleteConfirmationModalActive"
                                 :preloader="deleteLoader"
@@ -59,7 +69,6 @@
 
         created(){
             this.options.columns = [...this.TableType[this.typeTable], this.actionObj];
-            //this.searchAndSelectFilterOptions();
         },
         methods: {
             /**
@@ -90,9 +99,23 @@
 
                     this.openDeleteModal();
                 } else if (actionObj.title == this.$t('edit')) {
-                    if(this.typeTable == 2) this.selectedUrl = `/update-abonnement/${this.rowData.id}`;
-                    else if(this.typeTable == 0) this.selectedUrl = `/update-panne-abonnement/${this.rowData.id}`;
-                    else this.selectedUrl = `/update-transaction/${this.rowData.id}`;
+                    switch (this.typeTable) {
+                        case 0:
+                            this.selectedUrl = `/update-panne-abonnement/${this.rowData.id}`;
+                            break;
+                        case 1:
+                            this.selectedUrl = `/update-transaction/${this.rowData.id}`;
+                            break;
+                        case 2:
+                            this.selectedUrl = `/update-abonnement/${this.rowData.id}`;
+                            break;
+                        case 3:
+                            this.selectedUrl = `/update-panne/${this.rowData.id}`;
+                            break;
+                        case 4:
+                            this.selectedUrl = `/update-modalite/${this.rowData.id}`;
+                            break;
+                    }
                     this.openAddEditModal();
                 }
             },
@@ -109,10 +132,23 @@
              */
             confirmed() {
                 let url;
-                if(this.typeTable == 2) url = `/delete-abonnement/${this.rowData.id}`;
-                else if(this.typeTable == 0) url = `/delete-panne-abonnement/${this.rowData.id}`;
-                else url = `/delete-transaction/${this.rowData.id}`;
-                console.log(url);
+                switch (this.typeTable) {
+                        case 0:
+                            url = `/delete-panne-abonnement/${this.rowData.id}`;
+                            break;
+                        case 1:
+                            url = `/delete-transaction/${this.rowData.id}`;
+                            break;
+                        case 2:
+                            url = `/delete-abonnement/${this.rowData.id}`;
+                            break;
+                        case 3:
+                            url = `/delete-panne/${this.rowData.id}`;
+                            break;
+                        case 4:
+                            url = `/delete-modalite/${this.rowData.id}`;
+                            break;
+                    }
                 this.deleteLoader=true;
                 this.axiosDelete(url)
                     .then(response => {

@@ -38,7 +38,7 @@
                     <label class="col-sm-3 mb-0">Produits</label>
                     <div class="col-sm-9">
                         <select name="prod" id="prod" v-model="inputs.produit" class="form-control col-md-6 mt-2">
-                            <option v-for="produit in produits" v-bind:key="produit.id" :value="produit.duree + ' ' + ((produit.duree > 1) ? 'Months': 'Month')">{{produit.nom}}</option>
+                            <option v-for="produit in produits" v-bind:key="produit.id" :value="produit.nom">{{produit.nom}}</option>
                         </select>
                     </div>
                     

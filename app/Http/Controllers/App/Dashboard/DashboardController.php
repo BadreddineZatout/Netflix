@@ -14,6 +14,7 @@ use App\Models\Transaction;
 use App\Services\App\Dashboard\DashboardService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Gd\Encoder;
 use Noodlehaus\FileParser\Json;
 
@@ -51,6 +52,29 @@ class DashboardController extends Controller
     public function comptes()
     {
         return Compte::all();
+    }
+    public function storeComptes(Request $request)
+    {
+        $compte = new Compte();
+        $compte->nom = $request->first_name . " " . $request->last_name;
+        $compte->mobile = $request->telephone;
+        $compte->email = $request->email;
+        $compte->adresse = $request->adresse;
+        $compte->password = Hash::make($request->password);
+        $compte->wilaya = $request->wilaya;
+        $compte->commune = $request->commune;
+        $compte->balanceCharge = 0;
+        $compte->totalAchatAbonnement = 0;
+        $compte->balanceActuel = 0;
+        $compte->save();
+
+        $user = new User();
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->status_id = 2;
+        $user->save();
     }
     public function store(Request $request)
     {

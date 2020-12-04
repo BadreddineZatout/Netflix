@@ -60,6 +60,13 @@ export const FormMixin = {
             this.submitFromFixin(reqType, url, submitData);
         },
         /**
+         * save new data 
+         */
+        savePost(url, submitData) {
+            let reqType = "post";
+            this.submitFromFixin(reqType, url, submitData);
+        },
+        /**
          * save edited data 
          */
         saveEdit(url, submitData) {
@@ -102,11 +109,11 @@ export const FormMixin = {
                         url: url,
                         data: submitData,
                     });
-
                 }
 
                 axioscall.then((response) => {
                     //trigger after success
+                    console.log(response);
                     if (this.isFunction(this.afterSuccess))
                         this.afterSuccess(response);
 

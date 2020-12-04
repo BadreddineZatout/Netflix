@@ -28,7 +28,6 @@ export default {
          * */
         axiosGet(url, data = null) {
             url = this.getAppUrl(url);
-
             return AxiosFunction.axiosGet(url, data);
         },
 

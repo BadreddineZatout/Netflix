@@ -17,24 +17,24 @@
                 info: {},
             }
         },
-        created() {
-            this.getusers();
-        },
-        mounted(){
-            this.affiche();
-        },
-        methods: {
-            getusers(){
-                let url = actions.ADMIN;
-                    this.axiosGet(url).then(response =>{
-                        //Vue.set(this.info, 'users' ,response.data);    
-                        console.log(response.data);
-                    });
-            },
-            affiche(){
-                console.log(this.info);
-                console.log(this.info.users);
-            },
-        }
+        // created() {
+        //     this.getusers();
+        // },
+        // mounted(){
+        //     this.affiche();
+        // },
+        // methods: {
+        //     getusers(){
+        //         let url = actions.ADMIN;
+        //             this.axiosGet(url).then(response =>{
+        //                 //Vue.set(this.info, 'users' ,response.data);    
+        //                 console.log(response.data);
+        //             });
+        //     },
+        //     affiche(){
+        //         console.log(this.info);
+        //         console.log(this.info.users);
+        //     },
+        // }
     }
 </script>

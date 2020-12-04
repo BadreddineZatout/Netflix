@@ -41,6 +41,58 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-12">
+                                <label for="user_email">{{ $t('email') }}</label>
+                                <app-input type="text"
+                                           v-model="user.email"
+                                           :placeholder="$t('enter email')"
+                                           :required="true"
+                                />
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <label for="user_telephone">{{ $t('telephone') }}</label>
+                                <app-input type="text"
+                                           v-model="user.telephone"
+                                           :placeholder="$t('enter telephone')"
+                                           :required="true"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="form-group col-12">
+                                <label for="wilayachoice">{{ $t('Wilaya') }}</label>
+                                <select id="wilayachoice" name="wilayachoice" class="form-control overflow-auto btn" v-model="user.wilaya" required>
+                                    <option value="0" selected> Choisir la Wilaya</option>
+                                    <option v-for="wilaya in wilayas" v-bind:key="wilaya.CodeWilaya" :value="wilaya.CodeWilaya" v-on:click="getCommune(wilaya.CodeWilaya)">{{wilaya.NomWilaya}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="form-group col-12">
+                                <label for="commune">{{ $t('Commune') }}</label>
+                                <select id="communechoice" name="communechoice" class="form-control overflow-auto btn" v-model="user.commune" required>
+                                    <option value="0" selected> Choisir la Commune</option>
+                                    <option v-for="commune in communes" v-bind:key="commune.id" :value="commune.id">{{commune.NomCommune}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <label for="user_adresse">{{ $t('adresse') }}</label>
+                                <app-input type="text"
+                                           v-model="user.adresse"
+                                           :placeholder="$t('enter adresse')"
+                                           :required="true"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-12">
                                 <label for="user_password">{{ $t('password') }}</label>
                                 <app-input type="password"
                                            v-model="user.password"
@@ -72,7 +124,7 @@
                             <div class="form-group col-12">
                                 <app-load-more :preloader="preloader"
                                                :label="$t('sign_up')"
-                                               :class="{'disabled': !userInfo}"
+                                               :class="{'disabled': false}"
                                                type="submit"
                                                class-name="btn btn-primary btn-block text-center"
                                                @submit="submit"/>
@@ -110,25 +162,43 @@
         },
         data() {
             return {
-                user: {},
+                wilayas: [],
+                communes: [],
+                user: {
+                    wilaya: 0,
+                    commune: 0
+                },
                 userData: {},
             }
         },
         created() {
+            this.getWilaya();
             if (this.userInfo) {
                 this.userData = JSON.parse(this.userInfo);
             }
         },
         methods: {
+            getWilaya(){
+                let url = 'default-dashboard-wilayas';
+                    this.axiosGet(url).then(response =>{
+                        this.wilayas = response.data;    
+                    });
+            },
+            getCommune(id){
+                let url = `default-dashboard-communes/communget=${id}`;
+                    this.axiosGet(url).then(response =>{
+                        this.communes = response.data;    
+                    });
+            },
             submit() {
                 let data = this.user;
-                data.email = this.userData.email;
                 data.invitation_token = this.userData.invitation_token;
-                this.save(data);
+                this.savePost('/comptes',data);
+                //this.save(data);
             },
             afterSuccess(res) {
-                this.$toastr.s(res.data.message);
-                location.replace('/admin/users/login');
+                //this.$toastr.s(res.data.message);
+                location.replace('/admin/dashboard');
             },
         }
 

@@ -1,10 +1,8 @@
 <?php
 
-use App\Http\Controllers\App\Dashboard\AcademicDashboardController;
 use App\Http\Controllers\App\Dashboard\DashboardController;
-use App\Http\Controllers\App\Dashboard\EcommerceDashboardController;
-use App\Http\Controllers\App\Dashboard\HospitalDashboardController;
-use App\Http\Controllers\App\Dashboard\HrmDashboardController;
+use App\Http\Controllers\Core\CommuneController;
+use App\Http\Controllers\Core\WilayaController;
 
 Route::group(['prefix' => 'dashboard'], function(){
     Route::view('/pannes', 'dashboard.pannes');
@@ -12,6 +10,7 @@ Route::group(['prefix' => 'dashboard'], function(){
     Route::view('/abonnements', 'dashboard.abonns');
     Route::view('/revendeur', 'dashboard.revendeur');
     Route::view('/settings', 'dashboard.settings');
+    Route::view('/declarePanne', 'dashboard.settings');
 });
 
 // Default dashboard
@@ -22,10 +21,14 @@ Route::get('default-dashboard-produits', [DashboardController::class, 'produits'
 Route::get('default-dashboard-pannes', [DashboardController::class, 'pannes']);
 Route::get('default-dashboard-modalites', [DashboardController::class, 'modalites']);
 Route::get('default-dashboard-comptes', [DashboardController::class, 'comptes']);
+Route::get('default-dashboard-wilayas', [WilayaController::class, 'getwilaya']);
+Route::get('default-dashboard-communes/communget={code}', [CommuneController::class, 'getCommune']);
+
 
 Route::post('/revendeur', [DashboardController::class, 'store']);
 Route::post('/pannes', [DashboardController::class, 'storePannes']);
 Route::post('/modalites', [DashboardController::class, 'storeModalites']);
+Route::post('/comptes', [DashboardController::class, 'storeComptes']);
 
 Route::patch('/update-abonnement/{id}', [DashboardController::class, 'updateAbonnement']);
 Route::patch('/update-transaction/{id}', [DashboardController::class, 'updateTransaction']);

@@ -22,6 +22,7 @@ Vue.component('dashboard-trans',  require('./components/views/dashboard/Transact
 Vue.component('dashboard-abonnements',  require('./components/views/dashboard/Abonnements').default);
 Vue.component('dashboard-revendeur',  require('./components/views/dashboard/Revendeur').default);
 Vue.component('dashboard-settings',  require('./components/views/dashboard/Settings').default);
+Vue.component('declare-panne',  require('./components/views/panne/declare-panne').default);
 
 // Settings
 Vue.component('app-setting',  require('./components/views/settings/app-settings/Index').default);

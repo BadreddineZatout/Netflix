@@ -28,7 +28,7 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-12">
-                                    <label for="password">{{ $t('Produit') }}</label>
+                                    <label for="prod">{{ $t('Produit') }}</label>
                                     <select name="prod" id="prod" v-model="options.data.produit" class="form-control" required>
                                         <option v-for="produit in produits" v-bind:key="produit.id" :value="produit.nom">{{produit.nom}}</option>
                                     </select>
@@ -52,7 +52,6 @@ import {FormMixin} from '../../../../core/mixins/form/FormMixin';
 export default {
     data(){
         return{
-            csrf: $('meta[name=_token]').attr('content'),
             produits: [],
             options:{
                 url: actions.STORE,

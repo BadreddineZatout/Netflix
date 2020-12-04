@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Gd\Encoder;
 use Noodlehaus\FileParser\Json;
 
+use function PHPUnit\Framework\isNull;
+
 class DashboardController extends Controller
 {
     // public function __construct(DashboardService $service)
@@ -52,6 +54,14 @@ class DashboardController extends Controller
     public function comptes()
     {
         return Compte::all();
+    }
+    public function getAbonnement($email, $pdw)
+    {
+        $a = Abonnement::where('email', $email)->where('password', $pdw)->latest('id')->first();
+        if (!$a)
+        {
+            return 'non ok';
+        }else return 'ok';
     }
     public function storeComptes(Request $request)
     {
@@ -113,6 +123,21 @@ class DashboardController extends Controller
         $modpaie = new Modalite_de_paiement();
         $modpaie->modalitePaiement = $request->modalite;
         $modpaie->save();
+    }
+    public function storePanneAbonnement(Request $request)
+    {
+        $pa = new PanneAbonnement();
+        $p = Panne::select('id')->where('panne', $request->panne)->first();
+        $a = Abonnement::where('email', $request->email)->where('password', $request->password)->latest('id')->first();
+
+        $pa->abonnement = $a->id;
+        $pa->date = date("Y-m-d");
+        $pa->heure = date("H:i:s");
+        $pa->panne = $p->id;
+        $pa->Etat = "pending";
+        $a->etat = "inactif";
+        $a->save();
+        $pa->save();
     }
     public function updatePanneAbonnement(Request $request, $id)
     {

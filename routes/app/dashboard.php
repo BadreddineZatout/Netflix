@@ -10,7 +10,6 @@ Route::group(['prefix' => 'dashboard'], function(){
     Route::view('/abonnements', 'dashboard.abonns');
     Route::view('/revendeur', 'dashboard.revendeur');
     Route::view('/settings', 'dashboard.settings');
-    Route::view('/declarePanne', 'dashboard.settings');
 });
 
 // Default dashboard

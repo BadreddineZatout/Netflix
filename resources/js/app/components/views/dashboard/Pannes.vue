@@ -55,8 +55,7 @@
         methods: {
             getpanne(){
                 let url = actions.PANNES_ABONNEMENT;
-                    this.axiosGet(url).then(response =>{
-                        //Vue.set(this.info, 'users' ,response.data);    
+                    this.axiosGet(url).then(response =>{ 
                         console.log(response.data);
                     });
             },

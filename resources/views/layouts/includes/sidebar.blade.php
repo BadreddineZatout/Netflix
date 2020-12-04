@@ -39,6 +39,12 @@
             ],
         ],
         [
+           'icon' => 'alert-triangle',
+           'name' => trans('Panne Abonnemnt'),
+           'url' => '/declarePanne',
+           'permission' => authorize_any(['view_default']),
+        ],
+        [
             'id' => 'auth-pages',
             'icon' => 'power',
             'name' => trans('custom.authentication'),

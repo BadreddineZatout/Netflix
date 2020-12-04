@@ -13,6 +13,7 @@ export const MODALITES = 'default-dashboard-modalites';
 export const STORE = '/revendeur';
 export const STORE_PANNES = '/pannes';
 export const STORE_MODALITES = '/modalites';
+export const DECLARE_PANNE = '/declarePanne';
 
 //Profile
 export const MY_PROFILE = '/my-profile';

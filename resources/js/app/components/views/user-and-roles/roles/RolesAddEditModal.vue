@@ -1,7 +1,6 @@
 <template>
     <dashboard-modal :modal-id="userAndRoles.roles.addEditModalId"
                      :title="modalTitle"
-                     :preloader="preloader"
                      @submit="submit"
                      @close-modal="closeModal">
 
@@ -9,8 +8,8 @@
             <app-overlay-loader v-if="preloader"/>
             <form ref="form"
                   :data-url='selectedUrl ? `admin/auth/roles/${userAndRoles.rowData.id}` : `admin/auth/roles`'
-                  class="mb-0"
-                  :class="{'loading-opacity': preloader}">
+                  class="mb-0">
+                  <!-- :class="{'loading-opacity': preloader}"> -->
                 <div v-if="userAndRoles.roles.addEditModalTitle == 'role'"
                      class="form-group">
                     <label>{{ $t('role_name') }}</label>
@@ -19,7 +18,7 @@
                                :placeholder="$t('enter_a_role_name')"
                                :required="true"/>
                 </div>
-                <div class="form-group mb-0" v-if="!preloader">
+                <div class="form-group mb-0" v-if="show">
                     <label>{{ $t('permission') }}</label>
                     <div id="accordionExample" class="accordion" v-if="groupLoaded">
                         <div class="card" v-for="(permission, index) in Object.keys(userAndRoles.permissionList)"
@@ -57,7 +56,7 @@
                                                :list="userAndRoles.permissionList[permission]"
                                                v-model="checkedPermissions[permission]"
                                                @changed="checkPermissions($event,permission )"
-                                               list-value-field="translated_name"/>
+                                               list-value-field="name"/>
                                 </div>
                             </div>
                         </div>
@@ -88,6 +87,7 @@
                     name: '',
                     type_id: 1,
                 },
+                show: true,
                 permissions: [],
                 checkedPermissions: {},
                 types: [],
@@ -99,8 +99,10 @@
         },
         created() {
             if (this.selectedUrl) {
-                this.preloader = true;
+                console.log(this.selectedUrl);
+                // this.preloader = true;
                 this.modalTitle = this.manage ? this.$t('manage_permission') : this.$t('edit_role');
+                if (this.modalTitle == this.$t('edit_role')) this.show = false;
             }
 
             Object.keys(this.userAndRoles.permissionList)
@@ -148,7 +150,6 @@
                         this.isCheckedCheckbox[permissionElement] = true;
                     }
                 });
-
                 setTimeout(() => {
                     this.preloader = false;
                 })

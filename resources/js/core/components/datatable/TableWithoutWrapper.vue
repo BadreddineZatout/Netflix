@@ -213,6 +213,7 @@
                 search: null,
                 orderBy: this.options.orderBy ? this.options.orderBy : 'desc',
                 reloadSearch: false,
+                reloadFilter: false,
                 originalDataSet: [],
                 
                 //Dynamic content
@@ -287,10 +288,18 @@
                     this.search = this.searchValue;
                     if (this.options.name=='PannesTable' || this.options.name=='AbonnementsTable'){
                         this.dataSet = this.searchEmails(this.originalDataSet,this.search);
-                    }else this.dataSet = this.searchEmeteurs(this.originalDataSet,this.search);
+                    }else if (this.options.name=='Users'){
+                        this.dataSet = this.searchUsers(this.originalDataSet,this.search);
+                    }else if (this.options.name=='Roles'){
+                        this.dataSet = this.searchRoles(this.originalDataSet,this.search);
+                    }else this.dataSet = this.searchRoles(this.originalDataSet,this.search);
                     this.reloadSearch = false;
                 }
-                else {
+                else if(this.reloadFilter){
+                    this.filterValues.status = this.filteredData['status-id'];
+                    this.dataSet = this.filterStatus(this.originalDataSet,this.filterValues.status);
+                    this.reloadFilter=false;
+                }else{
                     this.paginationRowLimit = this.options.rowLimit ? this.options.rowLimit : 10;
                     // this.orderBy = this.options.orderBy ? this.options.orderBy : 'DESC';
                     this.filterValues = this.filteredData;
@@ -344,6 +353,7 @@
                 this.loadMorePreloader = false;
                 this.activePaginationPage = response.current_page;
                 this.dataSet = [...this.dataSet, ...response.data];
+                this.originalDataSet = [...this.originalDataSet, ...response.data];
             },
 
             /**
@@ -380,6 +390,23 @@
                     if (value) {
                         this.activePaginationPage = 1;
                         this.selectedRows = [];
+                        this.dataTableInit();
+                    }
+                });
+
+                this.$hub.$on('reload-status', (value=true)=>{
+                    if(value){
+                        this.activePaginationPage = 1;
+                        this.selectedRows = [];
+                        this.dataTableInit();
+                    }
+                });
+
+                this.$hub.$on('filter', (value=true)=>{
+                    if (value){
+                        this.activePaginationPage = 1;
+                        this.selectedRows = [];
+                        this.reloadFilter = true;
                         this.dataTableInit();
                     }
                 });

@@ -125,13 +125,12 @@
             getFilterValue(item) {
                 this.value = item;
                 this.filteredData['status-id'] = item;
-                this.$hub.$emit('reload-' + this.data.tableId);
+                this.$hub.$emit('filter');
             },
             getStatuses(){
                 let url = actions.GET_STATUSES;
 
                 this.axiosGet(url).then(response => {
-
                     this.userFilterOptions = [...this.userFilterOptions, ...response.data];
 
                 }).catch(({response}) => {

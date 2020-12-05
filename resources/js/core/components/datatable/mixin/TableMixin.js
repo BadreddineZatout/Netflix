@@ -45,5 +45,21 @@ export const TableMixin = {
                 return item.emeteur.match(search);
             });
         },
+        searchUsers(dataSet, search){
+            return dataSet.filter((item)=>{
+                return item.first_name.match(search);
+            });
+        },
+        searchRoles(dataSet, search){
+            return dataSet.filter((item)=>{
+                return item.name.match(search);
+            });
+        },
+        filterStatus(dataSet, filter){
+            if (filter=="") return dataSet;
+            return dataSet.filter((item)=>{
+                return item.status_id == filter;
+            });
+        },
     }
 };

@@ -2,8 +2,8 @@
     <div class="container-fluid p-0">
         <div class="row">
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8">
-                <div class="back-image">
-                    <!-- :style="'background-image: url('+configData.company_banner+')'" -->
+                <div class="back-image"
+                    :style="'background-image: url('+configData.company_banner+')'">
                 </div>
             </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pl-md-0">
@@ -63,7 +63,7 @@
                         <div class="form-row">
                             <div class="col-12">
                                 <p class="text-center mt-5">
-                                    <!-- {{ $t('copyright_text') + configData.company_name }} -->
+                                    {{ $t('copyright_text') + configData.company_name }}
                                 </p>
                             </div>
                         </div>
@@ -77,6 +77,8 @@
 <script>
     import ThemeMixin from "../../../../core/mixins/global/ThemeMixin";
     import {AuthMixin} from "./mixins/AuthMixin";
+    import * as actions from '../../../config/ApiUrl';
+
     export default {
         name: "Login",
         mixins: [AuthMixin, ThemeMixin],
@@ -88,6 +90,11 @@
         data() {
             return {
                 login: {email: 'admin@demo.com', password: '123456'},
+                options:{
+                    url: actions.DECLARE_PANNE,
+                    data:{},
+                },
+                pannes: [],
             };
         },
         methods: {

@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header bg-primary text-white">Choisir un offre</div>
+                    <div class="card-header bg-primary text-white">Declarer une panne</div>
                     <div class="card-body">
                         <form>
                             <div class="form-row">

@@ -36,6 +36,13 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-12">
+                                    <strong v-if="notfound" class="strong">
+                                        Cette abonnement n'existe pas !!!
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-12">
                                     <button class="btn btn-primary" v-on:click="storePanne">Declarer la Panne</button>
                                 </div>
                             </div>
@@ -58,7 +65,8 @@ export default {
             options:{
                 url: actions.DECLARE_PANNE,
                 data:{},
-            }
+            },
+            notfound: false
         }
     },
     mixins: [FormMixin],
@@ -78,8 +86,9 @@ export default {
                 let pdw = this.options.data.password;
                 this.axiosGet(`/declarePanne/email=${email}/pdw=${pdw}`).then(response =>{ 
                         if(response.data == 'non ok'){
-                            alert("abonnement non exister");
+                            this.notfound = true;
                         }else{
+                            this.notfound = false;
                             axios.post(
                                  this.options.url,this.options.data
                             ).then(function(response){
@@ -92,3 +101,8 @@ export default {
         }
 }
 </script>
+<style>
+.strong{
+    color: red;
+}
+</style>

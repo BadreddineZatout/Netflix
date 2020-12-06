@@ -58,7 +58,7 @@
                 <app-navbar-language-dropdown :selected-language="selectedLanguage" :data="languageData"/>
 
                 <span class="topbar-divider d-none d-sm-block"/>
-                <app-navbar-notification-dropdown :all-notification-url="allNotificationUrl" :data="notificationData" :show-identifier="showIdentifier" @clicked="sendNotification"/>
+                <app-navbar-notification-dropdown :data="notificationData" :show-identifier="showIdentifier" @clicked="sendNotification"/>
 
                 <span class="topbar-divider d-none d-sm-block"/>
                 <app-navbar-profile-dropdown :user="user" :data="profileData"/>

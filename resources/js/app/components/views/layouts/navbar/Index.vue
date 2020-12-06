@@ -34,16 +34,16 @@
                         optionIcon: 'user',
                         url: actions.MY_PROFILE
                     },
-                    {
-                        optionName: 'Notifications',
-                        optionIcon: 'bell',
-                        url: actions.All_NOTIFICATION
-                    },
-                    {
-                        optionName: 'Settings',
-                        optionIcon: 'settings',
-                        url: actions.APP_SETTINGS
-                    },
+                    // {
+                    //     optionName: 'Notifications',
+                    //     optionIcon: 'bell',
+                    //     url: actions.All_NOTIFICATION
+                    // },
+                    // {
+                    //     optionName: 'Settings',
+                    //     optionIcon: 'settings',
+                    //     url: actions.APP_SETTINGS
+                    // },
                     {
                         optionName: 'Logout',
                         optionIcon: 'log-out',

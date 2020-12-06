@@ -3,7 +3,6 @@
                      :title="modalTitle"
                      @submit="submit"
                      @close-modal="closeModal">
-
         <template slot="body">
             <app-overlay-loader v-if="preloader"/>
             <form ref="form"
@@ -78,8 +77,8 @@
         name: "RolesAddEditModal",
         mixins: [FormMixin, ModalMixin, UserAndRoleMixin],
         props: {
-            data: Object,
-            manage: {}
+            data: {},
+            manage: {},
         },
         data() {
             return {
@@ -99,7 +98,6 @@
         },
         created() {
             if (this.selectedUrl) {
-                console.log(this.selectedUrl);
                 // this.preloader = true;
                 this.modalTitle = this.manage ? this.$t('manage_permission') : this.$t('edit_role');
                 if (this.modalTitle == this.$t('edit_role')) this.show = false;
@@ -110,7 +108,7 @@
                     this.checkedPermissions[permission] = [];
                     this.isCheckedCheckbox[permission] = false;
                 });
-
+            this.inputs = this.userAndRoles.rowData;
         },
         methods: {
 

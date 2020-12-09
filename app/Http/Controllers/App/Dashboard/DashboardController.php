@@ -124,6 +124,17 @@ class DashboardController extends Controller
         $modpaie->modalitePaiement = $request->modalitePaiement;
         $modpaie->save();
     }
+    public function storeProduit(Request $request)
+    {
+        $produit = new Produit();
+        $produit->nom = $request->nom;
+        $produit->duree = $request->duree;
+        $produit->tarifVenteRevendeur = $request->tarifVenteRevendeur;
+        $produit->tarifVenteDetail = 0;
+        $produit->tarifAchatEuro = $request->tarifAchatEuro;
+        $produit->tarifAchatDinar = $request->tarifAchatDinar;
+        $produit->save();
+    }
     public function storePanneAbonnement(Request $request)
     {
         $pa = new PanneAbonnement();
@@ -201,6 +212,16 @@ class DashboardController extends Controller
         $modpaie->modalitePaiement = $request->modalitePaiement;
         $modpaie->save();
     }
+    public function updateProduit(Request $request, $id)
+    {
+        $produit = Produit::findOrFail($id);
+        $produit->nom = $request->nom;
+        $produit->duree = $request->duree;
+        $produit->tarifVenteRevendeur = $request->tarifVenteRevendeur;
+        $produit->tarifAchatEuro = $request->tarifAchatEuro;
+        $produit->tarifAchatDinar = $request->tarifAchatDinar;
+        $produit->save();
+    }
     public function deleteAbonnement($id)
     {
         Abonnement::destroy($id);
@@ -220,5 +241,9 @@ class DashboardController extends Controller
     public function deleteModalite($id)
     {
         Modalite_de_paiement::destroy($id);
+    }
+    public function deleteProduit($id)
+    {
+        Produit::destroy($id);
     }
 }

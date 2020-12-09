@@ -132,6 +132,36 @@ export const TableHelpers = {
                         key: 'modalitePaiement'
                     },
                 ],
+
+                //ProduitTable
+
+                [
+                    {
+                        title: this.$t('Product Name'),
+                        type:'text',
+                        key: 'nom'
+                    },
+                    {
+                        title: this.$t('durantion in months'),
+                        type:'text',
+                        key: 'duree'
+                    },
+                    {
+                        title: this.$t('Tarif Vente Revendeur'),
+                        type:'text',
+                        key: 'tarifVenteRevendeur'
+                    },
+                    {
+                        title: this.$t('Tarif Achat Euro'),
+                        type:'text',
+                        key: 'tarifAchatEuro'
+                    },
+                    {
+                        title: this.$t('Tarif Achat Dinar'),
+                        type:'text',
+                        key: 'tarifAchatDinar'
+                    },
+                ],
             ],
             actionObj : {
                 title: this.$t('action'),

@@ -33,6 +33,11 @@
                        :rowData ="rowData"
                        :selected-url="selectedUrl"
                        @close-modal="closeAddEditModal"/>
+        <app-edit-produit v-if="isAddEditModalActive && typeTable == 5"
+                       :table-id="tableId"
+                       :rowData ="rowData"
+                       :selected-url="selectedUrl"
+                       @close-modal="closeAddEditModal"/>
 
         <dashboard-delete-modal v-if="deleteConfirmationModalActive"
                                 :preloader="deleteLoader"
@@ -115,6 +120,9 @@
                         case 4:
                             this.selectedUrl = `/update-modalite/${this.rowData.id}`;
                             break;
+                        case 5:
+                            this.selectedUrl = `/update-produit/${this.rowData.id}`;
+                            break;
                     }
                     this.openAddEditModal();
                 }
@@ -147,6 +155,9 @@
                             break;
                         case 4:
                             url = `/delete-modalite/${this.rowData.id}`;
+                            break;
+                        case 5:
+                            url = `/delete-produit/${this.rowData.id}`;
                             break;
                     }
                 this.deleteLoader=true;

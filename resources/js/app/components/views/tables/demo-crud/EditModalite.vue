@@ -5,7 +5,6 @@
                      @submit="submit"
                      @close-modal="closeModal">
         <template slot="body">
-            <p>{{selectedUrl}}</p>
             <!-- <app-overlay-loader v-if="preloader"/> -->
             <form class="mb-0"
                   ref="form">
@@ -49,7 +48,6 @@
             }
         },
         created() {
-            this.getProduits();
             if (this.selectedUrl) {
                 this.inputs = this.rowData;
                 this.modalTitle = this.$t('edit');
@@ -57,12 +55,6 @@
             }
         },
         methods: {
-            getProduits(){
-                let url = 'default-dashboard-produits';
-                    this.axiosGet(url).then(response =>{
-                        this.produits = response.data;    
-                    });
-            },
             submit() {
                 if (this.selectedUrl=='/modalites'){
                     alert("here");

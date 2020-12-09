@@ -8,7 +8,6 @@
             <!-- <app-overlay-loader v-if="preloader"/> -->
             <form class="mb-0"
                   ref="form">
-                <p>{{selectedUrl}}</p>
                 <div class="form-group row align-items-center">
                     <label for="inputs_panne" class="col-sm-3 mb-0">
                         {{ $t('type de panne') }}
@@ -61,7 +60,6 @@
             }
         },
         created() {
-            this.getProduits();
             if (this.selectedUrl) {
                 this.inputs = this.rowData;
                 this.modalTitle = this.$t('edit');
@@ -69,12 +67,6 @@
             }
         },
         methods: {
-            getProduits(){
-                let url = 'default-dashboard-produits';
-                    this.axiosGet(url).then(response =>{
-                        this.produits = response.data;    
-                    });
-            },
             submit() {
                 if (this.selectedUrl=='/pannes'){
                     this.savePost(this.selectedUrl, this.inputs);

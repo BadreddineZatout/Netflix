@@ -1,6 +1,24 @@
 <template>
     <div class="container-fluid col mt-5">
         <div class="row justify-content-center">
+            <app-edit-produit v-if="isEditProd"
+                       :table-id="tableId"
+                       :rowData ="rowData"
+                       :selected-url="'/produits'"
+                       @close-modal="closeAddEditModal"/>
+            <div class="col-sm-12">
+                <div class="float-md-right mb-3 mb-sm-3 mb-md-0">
+                    <button type="button"
+                            class="btn btn-primary btn-with-shadow"
+                            @click="openProdModel"
+                            data-toggle="modal">
+                        {{ $t('Add Produit') }}
+                    </button>
+                </div>
+            </div>
+            <advance-datatable title="Produit" :options = "options_produits" :typeTable="tab[2]"></advance-datatable>
+        </div>
+        <div class="row justify-content-center">
             <app-edit-panne v-if="isEditPanne"
                        :table-id="tableId"
                        :rowData ="rowData"
@@ -55,9 +73,41 @@ export default {
         return{
             isEditPanne: false,
             isEditMod: false,
+            isEditProd: false,
             tableId: 'advance-table',
             rowData: {},
-            tab: [3,4],
+            tab: [3,4,5],
+            options_produits: {
+                    name: 'ProduitsTable',
+                    url: actions.PRODUITS,
+                    showHeader: true,
+                    data: [],
+                    columns: [],
+                    actions: [
+                        {
+                            title: this.$t('edit'),
+                            icon: 'edit',
+                            type: 'none',
+                            component: 'app-add-modal',
+                            modalId: 'demo-add-edit-modal',
+
+                        }, {
+                            title: this.$t('delete'),
+                            icon: 'trash',
+                            type: 'none',
+                            component: 'app-confirmation-modal',
+                            modalId: 'demo-delete',
+                        }
+                    ],
+                    showFilter: false,
+                    showSearch: false,
+                    paginationType: "pagination",
+                    responsive: true,
+                    rowLimit: 10,
+                    showAction: true,
+                    orderBy: 'desc',
+                    actionType: "default",
+                },
             options_pannes: {
                     name: 'PannesTable',
                     url: actions.PANNES,
@@ -122,18 +172,12 @@ export default {
                 },
             pannes: [],
             modalites: [],
-            dataPanne: {
-                url: actions.STORE_PANNES,
-                data: {}
-            },
-            dataModalite: {
-                url: actions.STORE_MODALITES,
-                data: {}
-            },
+            produit: []
         }
     },
     mixins: [FormMixin],
     created(){
+        this.getProduits();
         this.getPanne();
         this.getModalite();
     },
@@ -143,6 +187,9 @@ export default {
         },
         openModModel(){
             this.isEditMod = true;
+        },
+        openProdModel(){
+            this.isEditProd = true;
         },
         getPanne(){
             let url = actions.PANNES;
@@ -156,25 +203,16 @@ export default {
                         this.modalites = response.data;    
                     });
         },
-        storePanne(e){
-            e.preventDefault();
-                axios.post(
-                    this.dataPanne.url,this.dataPanne.data
-                    ).then(function(response){
-                        window.location.replace('/dashboard/settings');
+        getProduits(){
+                let url = actions.PRODUITS;
+                    this.axiosGet(url).then(response =>{
+                        this.produits = response.data;    
                     });
-        },
-        storeModalite(e){
-            e.preventDefault();
-                axios.post(
-                    this.dataModalite.url,this.dataModalite.data
-                    ).then(function(response){
-                        window.location.replace('/dashboard/settings');
-                    });
-        },
+            },
         closeAddEditModal() {
             this.isEditPanne = false;
             this.isEditMod = false;             
+            this.isEditProd = false;             
         }
     }
 }

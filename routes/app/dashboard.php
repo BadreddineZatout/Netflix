@@ -28,16 +28,19 @@ Route::post('/revendeur', [DashboardController::class, 'store']);
 Route::post('/pannes', [DashboardController::class, 'storePannes']);
 Route::post('/modalites', [DashboardController::class, 'storeModalites']);
 Route::post('/comptes', [DashboardController::class, 'storeComptes']);
+Route::post('/produits', [DashboardController::class, 'storeProduit']);
 
 Route::patch('/update-abonnement/{id}', [DashboardController::class, 'updateAbonnement']);
 Route::patch('/update-transaction/{id}', [DashboardController::class, 'updateTransaction']);
 Route::patch('/update-panne-abonnement/{id}', [DashboardController::class, 'updatePanneAbonnement']);
 Route::patch('/update-panne/{id}', [DashboardController::class, 'updatePanne']);
 Route::patch('/update-modalite/{id}', [DashboardController::class, 'updateModalite']);
+Route::patch('/update-produit/{id}', [DashboardController::class, 'updateProduit']);
 
 Route::delete('/delete-abonnement/{id}', [DashboardController::class, 'deleteAbonnement']);
 Route::delete('/delete-transaction/{id}', [DashboardController::class, 'deleteTransaction']);
 Route::delete('/delete-panne-abonnement/{id}', [DashboardController::class, 'deletePanneAbonnement']);
 Route::delete('/delete-panne/{id}', [DashboardController::class, 'deletePanne']);
 Route::delete('/delete-modalite/{id}', [DashboardController::class, 'deleteModalite']);
+Route::delete('/delete-produit/{id}', [DashboardController::class, 'deleteProduit']);
 

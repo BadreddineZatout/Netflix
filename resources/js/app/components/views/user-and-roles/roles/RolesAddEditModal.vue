@@ -101,6 +101,7 @@
                 // this.preloader = true;
                 this.modalTitle = this.manage ? this.$t('manage_permission') : this.$t('edit_role');
                 if (this.modalTitle == this.$t('edit_role')) this.show = false;
+                this.inputs = this.userAndRoles.rowData;
             }
 
             Object.keys(this.userAndRoles.permissionList)
@@ -108,7 +109,6 @@
                     this.checkedPermissions[permission] = [];
                     this.isCheckedCheckbox[permission] = false;
                 });
-            this.inputs = this.userAndRoles.rowData;
         },
         methods: {
 

@@ -30,7 +30,7 @@
                                 <div class="form-group col-12">
                                     <label for="prod">{{ $t('Produit') }}</label>
                                     <select name="prod" id="prod" v-model="options.data.produit" class="form-control" required>
-                                        <option v-for="produit in produits" v-bind:key="produit.id" :value="produit.nom">{{produit.nom}}</option>
+                                        <option v-for="produit in produits" v-bind:key="produit.id" :value="produit.nom">{{produit.nom}} - {{produit.tarifVenteRevendeur}} DA</option>
                                     </select>
                                 </div>
                             </div>

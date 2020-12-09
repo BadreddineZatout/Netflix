@@ -5,9 +5,9 @@
                      @submit="submit"
                      @close-modal="closeModal">
         <template slot="body">
-            <app-overlay-loader v-if="preloader"/>
+            <p>{{selectedUrl}}</p>
+            <!-- <app-overlay-loader v-if="preloader"/> -->
             <form class="mb-0"
-                  :class="{'loading-opacity': preloader}"
                   ref="form">
                   
                 <div class="form-group row align-items-center">
@@ -50,8 +50,8 @@
         },
         created() {
             this.getProduits();
-            this.inputs = this.rowData;
             if (this.selectedUrl) {
+                this.inputs = this.rowData;
                 this.modalTitle = this.$t('edit');
                 this.preloader = false;
             }
@@ -64,7 +64,12 @@
                     });
             },
             submit() {
-                this.saveEdit(this.selectedUrl, this.inputs);
+                if (this.selectedUrl=='/modalites'){
+                    alert("here");
+                    this.savePost(this.selectedUrl, this.inputs);
+                    setTimeout(location.reload(), 6000);
+                } 
+                else this.saveEdit(this.selectedUrl, this.inputs);
             },
             afterSuccess(response){
                 this.$hub.$emit('DeletOrEdit');

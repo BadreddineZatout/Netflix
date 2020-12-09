@@ -121,7 +121,7 @@ class DashboardController extends Controller
     }
     public function storeModalites(Request $request){
         $modpaie = new Modalite_de_paiement();
-        $modpaie->modalitePaiement = $request->modalite;
+        $modpaie->modalitePaiement = $request->modalitePaiement;
         $modpaie->save();
     }
     public function storePanneAbonnement(Request $request)

@@ -300,7 +300,7 @@
                     if (this.typeFilter == 1){
                         this.dataSet = this.filterEtat(this.originalDataSet, this.filteredData['etat']);
                     }else if(this.typeFilter == 2){
-
+                        this.dataSet = this.filterDate(this.originalDataSet, this.filteredData['date']);
                     }else{
                         this.filterValues.status = this.filteredData['status-id'];
                         this.dataSet = this.filterStatus(this.originalDataSet,this.filterValues.status);

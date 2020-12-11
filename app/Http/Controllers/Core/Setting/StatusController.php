@@ -19,11 +19,8 @@ class StatusController extends Controller
     public function index()
     {
         $key = request()->get('type') ? 'statuses-'.request()->get('type') : 'statuses';
-
-        return cache()->rememberForever($key, function () {
-            return Status::query()
+        return Status::query()
                 ->filters($this->filter)
                 ->get();
-        });
     }
 }

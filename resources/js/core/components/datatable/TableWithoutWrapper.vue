@@ -309,7 +309,7 @@
                 }else{
                     this.paginationRowLimit = this.options.rowLimit ? this.options.rowLimit : 10;
                     // this.orderBy = this.options.orderBy ? this.options.orderBy : 'DESC';
-                    this.filterValues = this.filteredData;
+                    //this.filterValues = this.filteredData;
                     this.dataSet = [];
                     this.originalDataSet = [];
                     this.dataOffset = 0;

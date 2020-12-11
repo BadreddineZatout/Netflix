@@ -76,7 +76,6 @@ class DashboardController extends Controller
         $compte->balanceCharge = 0;
         $compte->totalAchatAbonnement = 0;
         $compte->balanceActuel = 0;
-        $compte->typeCompte = "revendeur";
         $compte->save();
 
         $user = new User();

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Parametres dashboard')
+@section('title', 'Parametres')
 
 @section('contents')
     <dashboard-settings></dashboard-settings>

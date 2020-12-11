@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Pannes Dashboard')
+@section('title', 'Pannes')
 
 @section('contents')
     <dashboard-panne></dashboard-panne>

@@ -15,7 +15,7 @@ class CreatePannesTable extends Migration
     {
         Schema::create('pannes', function (Blueprint $table) {
             $table->id();
-            $table->string('panne');
+            $table->string('panne')->unique();
             $table->string('color');
             $table->timestamps();
         });

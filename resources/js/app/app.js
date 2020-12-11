@@ -20,7 +20,9 @@ Vue.component('dashboard-default',  require('./components/views/dashboard/Defaul
 Vue.component('dashboard-panne',  require('./components/views/dashboard/Pannes').default);
 Vue.component('dashboard-trans',  require('./components/views/dashboard/Transactions').default);
 Vue.component('dashboard-abonnements',  require('./components/views/dashboard/Abonnements').default);
+Vue.component('dashboard-chargements',  require('./components/views/dashboard/Chargements').default);
 Vue.component('dashboard-revendeur',  require('./components/views/dashboard/Revendeur').default);
+Vue.component('dashboard-charge',  require('./components/views/dashboard/Charge').default);
 Vue.component('dashboard-settings',  require('./components/views/dashboard/Settings').default);
 Vue.component('declare-panne',  require('./components/views/panne/declare-panne').default);
 

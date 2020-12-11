@@ -27,9 +27,19 @@
                     'permission' => auth()->user()->can('view_abonnements'),
                 ],
                 [
+                    'name' => trans('Chargement'),
+                    'url' => '/dashboard/chargements',
+                    'permission' => auth()->user()->can('view_chargements'),
+                ],
+                [
                     'name' => trans('Revendeur'),
                     'url' => '/dashboard/revendeur',
                     'permission' => auth()->user()->can('view_revendeur'),
+                ],
+                [
+                    'name' => trans('Charge Compte'),
+                    'url' => '/dashboard/charge',
+                    'permission' => auth()->user()->can('view_charge'),
                 ],
                 [
                     'name' => trans('Parametrage'),

@@ -16,10 +16,13 @@ class CreateChargesTable extends Migration
         Schema::create('charges', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('compte');
+            $table->unsignedBigInteger('modalitePaiement');
+            $table->string('NumeroCompte')->nullable();
             $table->double('somme');
             $table->string('etat');
             $table->timestamps();
             $table->foreign('compte')->references('id')->on('comptes')->onDelete('cascade');
+            $table->foreign("modalitePaiement")->references("id")->on("modalite_de_paiements")->onDelete("cascade");
         });
     }
 

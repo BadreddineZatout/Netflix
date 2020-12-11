@@ -17,7 +17,7 @@ class CreateComptesTable extends Migration
             $table->id();
             $table->string('nom');
             $table->string('mobile');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('adresse');
             $table->string('password');
             $table->unsignedBigInteger('wilaya');
@@ -25,7 +25,6 @@ class CreateComptesTable extends Migration
             $table->double('balanceCharge');
             $table->double('totalAchatAbonnement');
             $table->double('balanceActuel');
-            $table->string('typeCompte');
             $table->foreign("Wilaya")->references("id")->on("wilayas")->onDelete("cascade");
             $table->foreign("commune")->references("id")->on("communes")->onDelete("cascade");
             $table->timestamps();

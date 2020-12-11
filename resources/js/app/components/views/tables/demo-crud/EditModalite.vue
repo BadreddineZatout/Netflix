@@ -57,7 +57,6 @@
         methods: {
             submit() {
                 if (this.selectedUrl=='/modalites'){
-                    alert("here");
                     this.savePost(this.selectedUrl, this.inputs);
                     setTimeout(location.reload(), 6000);
                 } 

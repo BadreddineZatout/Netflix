@@ -23,7 +23,6 @@ class CreateAbonnementsTable extends Migration
             $table->double('tarifVente');
             $table->double('tarifAchatEuro');
             $table->double('tarifAchatDinar');
-            $table->string('typeCompte');
             $table->double('marge');
             $table->string('resultatcreation');
             $table->string('etat'); //panne ou reglé

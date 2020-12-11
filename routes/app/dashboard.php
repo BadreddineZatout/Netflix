@@ -8,7 +8,9 @@ Route::group(['prefix' => 'dashboard'], function(){
     Route::view('/pannes', 'dashboard.pannes');
     Route::view('/transactions', 'dashboard.trans');
     Route::view('/abonnements', 'dashboard.abonns');
+    Route::view('/chargements', 'dashboard.chargements');
     Route::view('/revendeur', 'dashboard.revendeur');
+    Route::view('/charge', 'dashboard.charge');
     Route::view('/settings', 'dashboard.settings');
 });
 

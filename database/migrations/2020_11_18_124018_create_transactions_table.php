@@ -23,8 +23,8 @@ class CreateTransactionsTable extends Migration
             $table->double('soldeAvant');
             $table->double('soldeApres');
             $table->string('piecejoint');
-            $table->integer('npiecejoint');
             $table->unsignedBigInteger('modalitePaiement');
+            $table->string('etat');
             $table->timestamps();
             $table->foreign("idCompteRecepteur")->references("id")->on("comptes")->onDelete("cascade");
             $table->foreign("idCompteEmeteur")->references("id")->on("comptes")->onDelete("cascade");

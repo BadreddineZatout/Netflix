@@ -66,6 +66,12 @@ export const TableHelpers = {
                         type: 'text',
                         key: 'modalitePaiement'
                     },
+                    {
+                        title: this.$t('Etat'),
+                        type: 'text',
+                        key: 'etat'
+                    },
+                    
                 ],
 
                 //TableAbonnmentsColumns

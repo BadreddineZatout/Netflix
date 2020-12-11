@@ -214,6 +214,7 @@
                 orderBy: this.options.orderBy ? this.options.orderBy : 'desc',
                 reloadSearch: false,
                 reloadFilter: false,
+                typeFilter: 0,
                 originalDataSet: [],
                 
                 //Dynamic content
@@ -292,13 +293,19 @@
                         this.dataSet = this.searchUsers(this.originalDataSet,this.search);
                     }else if (this.options.name=='Roles'){
                         this.dataSet = this.searchRoles(this.originalDataSet,this.search);
-                    }else this.dataSet = this.searchRoles(this.originalDataSet,this.search);
+                    }else this.dataSet = this.searchEmeteurs(this.originalDataSet,this.search);
                     this.reloadSearch = false;
                 }
                 else if(this.reloadFilter){
-                    this.filterValues.status = this.filteredData['status-id'];
-                    this.dataSet = this.filterStatus(this.originalDataSet,this.filterValues.status);
-                    this.reloadFilter=false;
+                    if (this.typeFilter == 1){
+                        this.dataSet = this.filterEtat(this.originalDataSet, this.filteredData['etat']);
+                    }else if(this.typeFilter == 2){
+
+                    }else{
+                        this.filterValues.status = this.filteredData['status-id'];
+                        this.dataSet = this.filterStatus(this.originalDataSet,this.filterValues.status);
+                    }
+                    this.reloadFilter = false
                 }else{
                     this.paginationRowLimit = this.options.rowLimit ? this.options.rowLimit : 10;
                     // this.orderBy = this.options.orderBy ? this.options.orderBy : 'DESC';
@@ -404,6 +411,24 @@
 
                 this.$hub.$on('filter', (value=true)=>{
                     if (value){
+                        this.activePaginationPage = 1;
+                        this.selectedRows = [];
+                        this.reloadFilter = true;
+                        this.dataTableInit();
+                    }
+                });
+                this.$hub.$on('filterEtat', (value=true)=>{
+                    if (value){
+                        this.typeFilter = 1
+                        this.activePaginationPage = 1;
+                        this.selectedRows = [];
+                        this.reloadFilter = true;
+                        this.dataTableInit();
+                    }
+                });
+                this.$hub.$on('filterDate', (value=true)=>{
+                    if (value){
+                        this.typeFilter = 2;
                         this.activePaginationPage = 1;
                         this.selectedRows = [];
                         this.reloadFilter = true;

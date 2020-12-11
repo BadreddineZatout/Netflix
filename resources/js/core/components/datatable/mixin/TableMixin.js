@@ -61,5 +61,17 @@ export const TableMixin = {
                 return item.status_id == filter;
             });
         },
+        filterEtat(dataSet, filter){
+            if (filter=="") return dataSet;
+            return dataSet.filter((item)=>{
+                return item.etat == filter;
+            });
+        },
+        filterDate(dataSet, filter){
+            if (filter=="") return dataSet;
+            return dataSet.filter((item)=>{
+                return item.date == filter;
+            });
+        },
     }
 };

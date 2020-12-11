@@ -33,7 +33,7 @@ class DashboardController extends Controller
     }
     public function transactions()
     {
-        return Transaction::select('transactions.id', 'e.nom AS emeteur', 'r.nom AS recepteur', 'transactions.date', 'transactions.heure', 'transactions.montant', 'm.modalitePaiement')->join('comptes AS r', 'r.id', '=', 'transactions.idCompteRecepteur')->join('comptes AS e', 'e.id', '=', 'transactions.idCompteEmeteur')->join('modalite_de_paiements AS m', 'm.id', '=', 'transactions.modalitePaiement')->get();
+        return Transaction::select('transactions.id', 'e.nom AS emeteur', 'r.nom AS recepteur', 'transactions.date', 'transactions.heure', 'transactions.montant', 'm.modalitePaiement', 'transactions.etat')->join('comptes AS r', 'r.id', '=', 'transactions.idCompteRecepteur')->join('comptes AS e', 'e.id', '=', 'transactions.idCompteEmeteur')->join('modalite_de_paiements AS m', 'm.id', '=', 'transactions.modalitePaiement')->get();
     }
     public function pannesAbonnement()
     {
@@ -76,6 +76,7 @@ class DashboardController extends Controller
         $compte->balanceCharge = 0;
         $compte->totalAchatAbonnement = 0;
         $compte->balanceActuel = 0;
+        $compte->typeCompte = "revendeur";
         $compte->save();
 
         $user = new User();
@@ -197,6 +198,7 @@ class DashboardController extends Controller
         $t->heure = $request->heure;
         $t->montant = intval($request->montant);
         $t->modalitePaiement = $modalite[0]->id;
+        $t->etat = $request->etat;
         $t->save();
     }
     public function updatePanne(Request $request, $id)

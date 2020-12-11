@@ -66,6 +66,15 @@
                         </select>
                     </div>
                 </div>
+                <div class="form-group row align-items-center">
+                    <label class="col-sm-3 mb-0">Modalite de Paiement</label>
+                    <div class="col-sm-9">
+                        <input type="radio" name="etat" id="e1" value="paye" v-model="inputs.etat">
+                        <label class="mr-3" for="e1">Payé</label>
+                        <input type="radio" name="etat" id="e2" value="non paye" v-model="inputs.etat">
+                        <label class="mr-3" for="e2">Non Payé</label>
+                    </div>
+                </div>
             </form>
         </template>
     </dashboard-modal>

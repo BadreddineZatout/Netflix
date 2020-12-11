@@ -30,6 +30,17 @@
                             {{$t('close')}}
                         </button>
                     </span>
+                    <ul v-if="options.name == 'TransactionsTable'" class="nav tab-filter-menu justify-content-flex-end">
+                        <li class="nav-item">
+                            <a href="#" @click="getFilterValues('', 'etat')" class="nav-link py-0 font-size-default">all</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" @click="getFilterValues('paye', 'etat')" class="nav-link py-0 font-size-default">payé</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" @click="getFilterValues('non paye', 'etat')" class="nav-link py-0 font-size-default">non payé</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
@@ -134,11 +145,18 @@
             /**
              * emit from filter
              * */
-            getFilterValues(values) {
-                this.filterValues = values;
-                this.$emit('getFilteredValues', this.filterValues);
+            getFilterValues(values, type) {
+                let event = "";
+                if (type == 'etat'){
+                    event = "filterEtat";
+                    this.filterValues['etat'] = values;
+                }
+                else{
+                    event = "filterDate";
+                    this.filterValues['date'] = values;
+                } 
                 setTimeout(() => {
-                    this.$hub.$emit('reload-' + this.id);
+                    this.$hub.$emit(event);
                 });
             },
 

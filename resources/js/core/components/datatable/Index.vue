@@ -41,15 +41,16 @@
                             <a href="#" @click="getFilterValues('non paye', 'etat')" class="nav-link py-0 font-size-default">non payé</a>
                         </li>
                     </ul>
-                    <app-input id="dateFilter"
+                    <app-input v-if="options.name == 'TransactionsTable'"
+                               id="dateFilter"
                                class="col-sm-4"
                                type="date"
                                v-model="filterValues['date']"/>
-                    <button type="button" class="btn btn-primary btn-with-shadow"
+                    <button v-if="options.name == 'TransactionsTable'" type="button" class="btn btn-primary btn-with-shadow"
                             @click="getFilterValues(filterValues['date'], 'date')">
                         FILTER
                     </button>
-                    <button type="button" class="btn btn-primary btn-with-shadow ml-1"
+                    <button v-if="options.name == 'TransactionsTable'" type="button" class="btn btn-primary btn-with-shadow ml-1"
                             @click="getFilterValues('', 'date')">
                         CLEAR
                     </button>

@@ -90,6 +90,7 @@ Vue.component('app-add-modalP',  require('./components/views/tables/demo-crud/Ad
 Vue.component('app-edit-panne',  require('./components/views/tables/demo-crud/EditPanne').default);
 Vue.component('app-edit-modalite',  require('./components/views/tables/demo-crud/EditModalite').default);
 Vue.component('app-edit-produit',  require('./components/views/tables/demo-crud/EditProduit').default);
+Vue.component('app-edit-charge',  require('./components/views/tables/demo-crud/EditCharge').default);
 
 //overlay loader
 Vue.component('app-overlay-loader', require('../core/components/preloders/OverlayLoader').default);

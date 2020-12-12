@@ -41,7 +41,6 @@
                             <option v-for="produit in produits" v-bind:key="produit.id" :value="produit.nom">{{produit.nom}}</option>
                         </select>
                     </div>
-                    
                 </div>
                 <div class="form-group row align-items-center">
                     <label for="inputs_dd" class="col-sm-3 mb-0">

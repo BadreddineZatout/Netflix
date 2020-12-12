@@ -58,7 +58,7 @@ class DashboardController extends Controller
     }
     public function charges()
     {
-        return Charge::all();
+        return Charge::select('charges.id', 'comptes.nom', 'm.modalitePaiement', 'charges.NumeroCompte', 'charges.somme', 'charges.etat')->join('comptes', 'comptes.id', '=', 'charges.compte')->join('modalite_de_paiements AS m', 'm.id', '=', 'charges.modalitePaiement')->get();;
     }
     public function getAbonnement($email, $pdw)
     {
@@ -242,7 +242,13 @@ class DashboardController extends Controller
     }
     public function updateCharge(Request $request, $id)
     {
-
+        $charge = Charge::findOrFail($id);
+        $mod = Modalite_de_paiement::where('modalitePaiement', $request->modalitePaiement)->first();
+        $charge->modalitePaiement = $mod->id;
+        $charge->NumeroCompte = $request->NumeroCompte;
+        $charge->somme = $request->somme;
+        $charge->etat = $request->etat;
+        $charge->save();
     }
     public function deleteAbonnement($id)
     {

@@ -173,6 +173,36 @@ export const TableHelpers = {
                         key: 'tarifAchatDinar'
                     },
                 ],
+
+                //ChargeTable
+
+                [
+                    {
+                        title: this.$t('Recepteur'),
+                        type:'text',
+                        key: 'nom'
+                    },
+                    {
+                        title: this.$t('Modalite de paiement'),
+                        type:'text',
+                        key: 'modalitePaiement'
+                    },
+                    {
+                        title: this.$t('Numero du Compte'),
+                        type:'text',
+                        key: 'NumeroCompte'
+                    },
+                    {
+                        title: this.$t('Somme'),
+                        type:'text',
+                        key: 'somme'
+                    },
+                    {
+                        title: this.$t('Etat'),
+                        type:'text',
+                        key: 'etat'
+                    },
+                ],
             ],
             actionObj : {
                 title: this.$t('action'),

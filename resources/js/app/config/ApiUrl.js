@@ -10,6 +10,7 @@ export const ABONNEMENTS = 'default-dashboard-abonnements';
 export const PRODUITS = 'default-dashboard-produits';
 export const PANNES = 'default-dashboard-pannes';
 export const MODALITES = 'default-dashboard-modalites';
+export const CHARGES = 'default-dashboard-charges';
 export const STORE = '/revendeur';
 export const STORE_PANNES = '/pannes';
 export const STORE_MODALITES = '/modalites';

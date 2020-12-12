@@ -26,8 +26,10 @@ class CreateAbonnementsTable extends Migration
             $table->double('marge');
             $table->string('resultatcreation');
             $table->string('etat'); //panne ou reglé
+            $table->unsignedBigInteger('transaction');
             $table->timestamps();
             $table->foreign("produit")->references("id")->on("produits")->onDelete("cascade");
+            $table->foreign("transaction")->references("id")->on("transactions")->onDelete("cascade");
         });
     }
 

@@ -57,11 +57,6 @@ export const TableHelpers = {
                         key: 'date'
                     },
                     {
-                        title: this.$t('Heure'),
-                        type: 'text',
-                        key: 'heure'
-                    },
-                    {
                         title: this.$t('Montant'),
                         type: 'text',
                         key: 'montant'
@@ -186,6 +181,11 @@ export const TableHelpers = {
                         title: this.$t('Modalite de paiement'),
                         type:'text',
                         key: 'modalitePaiement'
+                    },
+                    {
+                        title: this.$t('Date'),
+                        type:'text',
+                        key: 'date'
                     },
                     {
                         title: this.$t('Numero du Compte'),

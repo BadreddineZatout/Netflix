@@ -48,6 +48,17 @@
                         <label class="mr-3" for="e2">paye</label>
                     </div>
                 </div>
+                <div class="form-group row align-items-center">
+                    <label for="inputs_date" class="col-sm-3 mb-0">
+                        {{ $t('Date') }}
+                    </label>
+                    <app-input id="inputs_date"
+                               class="col-sm-9"
+                               type="text"
+                               v-model="inputs.date"
+                               :placeholder="rowData.date"
+                               :required="true"/>
+                </div>
             </form>
         </template>
     </dashboard-modal>
@@ -79,6 +90,7 @@
             this.getModalites();
             if (this.selectedUrl) {
                 this.inputs = this.rowData;
+                this.inputs.oldEtat = this.rowData.etat;
                 this.modalTitle = this.$t('edit');
                 this.preloader = false;
             }

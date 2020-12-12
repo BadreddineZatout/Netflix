@@ -38,17 +38,6 @@
                 </div>
                 <div class="form-group row align-items-center">
                     <label for="inputs_h" class="col-sm-3 mb-0">
-                        {{ $t('Heure') }}
-                    </label>
-                    <app-input id="inputs_h"
-                               class="col-sm-9"
-                               type="text"
-                               v-model="inputs.heure"
-                               :placeholder="rowData.heure"
-                               :required="true"/>
-                </div>
-                <div class="form-group row align-items-center">
-                    <label for="inputs_h" class="col-sm-3 mb-0">
                         {{ $t('Montant') }}
                     </label>
                     <app-input id="inputs_h"

@@ -25,6 +25,7 @@ Route::get('default-dashboard-comptes', [DashboardController::class, 'comptes'])
 Route::get('default-dashboard-charges', [DashboardController::class, 'charges']);
 Route::get('default-dashboard-wilayas', [WilayaController::class, 'getwilaya']);
 Route::get('default-dashboard-communes/communget={code}', [CommuneController::class, 'getCommune']);
+Route::get('/balance', [DashboardController::class, 'getBalance']);
 
 
 Route::post('/revendeur', [DashboardController::class, 'store']);

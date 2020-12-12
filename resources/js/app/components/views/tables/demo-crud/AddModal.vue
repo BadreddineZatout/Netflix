@@ -107,6 +107,7 @@
         created() {
             this.getProduits();
             this.inputs = this.rowData;
+            this.inputs.oldresultatcreation = this.rowData.resultatcreation;
             if (this.selectedUrl) {
                 this.modalTitle = this.$t('edit');
                 this.preloader = false;

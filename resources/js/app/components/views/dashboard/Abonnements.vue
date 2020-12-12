@@ -41,53 +41,6 @@
                             modalId: 'demo-delete',
                         }
                     ],
-                    // filters: [
-                    //     {
-                    //         "title": this.$t('date'),
-                    //         "type": "range-picker",
-                    //         "key": "date",
-                    //         "option": ["today", "thisMonth", "last7Days", "nextYear"]
-                    //     },
-                    //     {
-                    //         "title": this.$t('age'),
-                    //         "type": "range-filter",
-                    //         "key": "age-range",
-                    //         "maxTitle": this.$t('max_age'),
-                    //         "minTitle": this.$t('min_age'),
-                    //         "sign": ""
-                    //     },
-                    //     {
-                    //         "title": this.$t('status'),
-                    //         "type": "checkbox",
-                    //         "key": "status",
-                    //         "option": [
-                    //             {id: 'active', value: 'Active'},
-                    //             {id: 'inactive', value: 'Inactive'},
-                    //             {id: 'invited', value: 'Invited'},
-                    //         ],
-                    //     },
-                    //     {
-                    //         "title": this.$t('gender'),
-                    //         "type": "radio",
-                    //         "key": "filter-with-gender",
-                    //         "option": [
-                    //             {id: 'male', value: 'Male'},
-                    //             {id: 'female', value: 'Female'},
-                    //             {id: 'other', value: 'Other'},
-                    //         ],
-
-                    //         "header": {
-                    //             "title": this.$t('want_to_filter_your_list'),
-                    //             "description": this.$t('you_can_filter_your_data_table_which_are_created_based_on_gender'),
-                    //         },
-                    //     },
-                    //     {
-                    //         "title": this.$t('search_and_select'),
-                    //         "type": "drop-down-filter",
-                    //         "key": "search select",
-                    //         "option": [],
-                    //     }
-                    // ],
                     showFilter: true,
                     showSearch: true,
                     paginationType: "pagination",

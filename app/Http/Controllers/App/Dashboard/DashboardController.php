@@ -10,6 +10,7 @@ use App\Models\Core\Auth\User;
 use App\Models\Modalite_de_paiement;
 use App\Models\Panne;
 use App\Models\PanneAbonnement;
+use App\Models\User_Role;
 use App\Models\Produit;
 use App\Models\Transaction;
 use App\Services\App\Dashboard\DashboardService;
@@ -30,11 +31,11 @@ class DashboardController extends Controller
 
     public function abonnements()
     {
-        return Abonnement::select('abonnements.id', 'abonnements.email', 'abonnements.password', 'produits.nom AS produit', 'abonnements.dateDebut', 'abonnements.datefin', 'abonnements.resultatcreation', 'abonnements.etat')->join('produits', 'produits.id', '=', 'abonnements.produit')->get();    
+        return Abonnement::select('abonnements.id', 'abonnements.email', 'abonnements.password', 'produits.nom AS produit', 'abonnements.dateDebut', 'abonnements.datefin', 'abonnements.resultatcreation', 'abonnements.etat', 'abonnements.transaction')->join('produits', 'produits.id', '=', 'abonnements.produit')->get();    
     }
     public function transactions()
     {
-        return Transaction::select('transactions.id', 'e.nom AS emeteur', 'r.nom AS recepteur', 'transactions.type', 'transactions.date', 'transactions.heure', 'transactions.montant', 'm.modalitePaiement', 'transactions.etat')->join('comptes AS r', 'r.id', '=', 'transactions.idCompteRecepteur')->join('comptes AS e', 'e.id', '=', 'transactions.idCompteEmeteur')->join('modalite_de_paiements AS m', 'm.id', '=', 'transactions.modalitePaiement')->get();
+        return Transaction::select('transactions.id', 'e.nom AS emeteur', 'e.id AS idE', 'r.nom AS recepteur', 'r.id AS idR', 'transactions.type', 'transactions.date', 'transactions.montant', 'm.modalitePaiement', 'transactions.etat')->join('comptes AS r', 'r.id', '=', 'transactions.idCompteRecepteur')->join('comptes AS e', 'e.id', '=', 'transactions.idCompteEmeteur')->join('modalite_de_paiements AS m', 'm.id', '=', 'transactions.modalitePaiement')->get();
     }
     public function pannesAbonnement()
     {
@@ -58,7 +59,7 @@ class DashboardController extends Controller
     }
     public function charges()
     {
-        return Charge::select('charges.id', 'comptes.nom', 'm.modalitePaiement', 'charges.NumeroCompte', 'charges.somme', 'charges.etat')->join('comptes', 'comptes.id', '=', 'charges.compte')->join('modalite_de_paiements AS m', 'm.id', '=', 'charges.modalitePaiement')->get();;
+        return Charge::select('charges.id', 'comptes.nom', 'comptes.id AS recepteur', 'm.modalitePaiement', 'charges.NumeroCompte', 'charges.somme', 'charges.etat', 'charges.date', 'charges.transaction')->join('comptes', 'comptes.id', '=', 'charges.compte')->join('modalite_de_paiements AS m', 'm.id', '=', 'charges.modalitePaiement')->get();;
     }
     public function getAbonnement($email, $pdw)
     {
@@ -67,6 +68,11 @@ class DashboardController extends Controller
         {
             return 'non ok';
         }else return 'ok';
+    }
+    public function getBalance()
+    {
+        $balance = Compte::where('email', Auth::user()->email)->first()->balanceActuel;
+        return $balance;
     }
     public function storeComptes(Request $request)
     {
@@ -93,7 +99,26 @@ class DashboardController extends Controller
     }
     public function store(Request $request)
     {
-        $d = $request->produit;
+        $user = Auth::user();
+        $compte = Compte::where('email', $user->email)->first();
+
+        $t = new Transaction();
+        $t->date = date("Y-m-d");
+        $t->montant = $request->produit[1]; 
+        $t->idCompteEmeteur = $compte->id;
+        $recep = User::where('id', User_Role::where('role_id', 1)->first()->user_id)->first();
+        $recep = Compte::where('email', $recep->email)->first();
+        $t->idCompteRecepteur = $recep->id;
+        $t->type = 'Abonnement';
+        $t->soldeAvant = $compte->balanceActuel;
+        $t->soldeApres = $t->soldeAvant - $request->produit[1];
+        $mod = Charge::where('id', $user->id)->latest('id')->first()->modalitePaiement;
+        $t->modalitePaiement = $mod;
+        $t->etat = 'non paye';
+        $t->save();
+        $t = Transaction::select('id')->latest('id')->first();
+
+        $d = $request->produit[0];
         $produit = Produit::where('nom', $d)->first(); 
         $abonn = new Abonnement();
         $startdate = date("Y-m-d");
@@ -111,11 +136,12 @@ class DashboardController extends Controller
         $abonn->tarifVente = $produit->tarifVenteRevendeur;
         $abonn->tarifAchatEuro = $produit->tarifAchatEuro;
         $abonn->tarifAchatDinar = $produit->tarifAchatDinar;
-        $abonn->typeCompte = "client";
-        $abonn->marge = $produit->tarifAchatDinar - $produit->tarifVenteRevendeur;
+        $abonn->marge = $produit->tarifVenteRevendeur - $produit->tarifAchatDinar;
         $abonn->resultatcreation = 'pending';
         $abonn->etat = 'inactif';
+        $abonn->transaction = $t->id;
         $abonn->save();
+        // return $abonn;
         
     }
     public function storePannes(Request $request){
@@ -159,12 +185,30 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
         $compte = Compte::where('email', $user->email)->first();
+        
+        $t = new Transaction();
+        $t->date = date("Y-m-d");
+        $t->montant = $request->somme; 
+        $t->idCompteRecepteur = $compte->id;
+        $emet = User::where('id', User_Role::where('role_id', 1)->first()->user_id)->first();
+        $emet = Compte::where('email', $emet->email)->first();
+        $t->idCompteEmeteur = $emet->id;
+        $t->type = 'Chargement';
+        $t->soldeAvant = $compte->balanceActuel;
+        $t->soldeApres = $t->soldeAvant + $request->somme;
+        $t->modalitePaiement = $request->modalite;
+        $t->etat = 'non paye';
+        $t->save();
+        $t = Transaction::select('id')->latest('id')->first();
+
         $charge = new Charge();
         $charge->compte = $compte->id;
         $charge->modalitePaiement = $request->modalite;
         $charge->NumeroCompte = $request->numero;
         $charge->somme = $request->somme;
         $charge->etat = "pending";
+        $charge->date = date("Y-m-d");
+        $charge->transaction = $t->id;
         $charge->save();
     }
     public function updatePanneAbonnement(Request $request, $id)
@@ -187,7 +231,18 @@ class DashboardController extends Controller
         $tmp = ($d > 1) ? ' Months' : ' Month';
         $d = $request->dateDebut . ' +' . $d . $tmp;
         $enddate = date("Y-m-d", strtotime($d));
-        
+
+        if ($request->oldresultatcreation=="pending" && $request->resultatcreation=="created")
+        {
+            $compte = Compte::where('email', Auth::user()->email)->first();
+            $compte->totalAchatAbonnement = $compte->totalAchatAbonnement + $produit->tarifVenteRevendeur;
+            $compte->balanceActuel = $compte->balanceActuel - $produit->tarifVenteRevendeur;
+            $compte->save();
+            $t = Transaction::findOrFail($request->transaction);
+            $t->etat = 'paye';
+            $t->save();
+        }
+
         $abonn->produit = $produit->id;
         $abonn->dateDebut = $startdate;
         $abonn->datefin = $enddate;
@@ -196,10 +251,10 @@ class DashboardController extends Controller
         $abonn->tarifVente = $produit->tarifVenteRevendeur;
         $abonn->tarifAchatEuro = $produit->tarifAchatEuro;
         $abonn->tarifAchatDinar = $produit->tarifAchatDinar;
-        $abonn->typeCompte = "client";
-        $abonn->marge = $produit->tarifAchatDinar - $produit->tarifVenteRevendeur;
+        $abonn->marge = $produit->tarifVenteRevendeur - $produit->tarifAchatDinar;
         $abonn->resultatcreation = $request->resultatcreation;
         $abonn->etat = $request->etat;
+        $abonn->transaction = $request->transaction;
         $abonn->save();
     }
     public function updateTransaction(Request $request, $id)
@@ -242,12 +297,23 @@ class DashboardController extends Controller
     }
     public function updateCharge(Request $request, $id)
     {
+        if ($request->oldEtat=="pending" && $request->etat=="paye")
+        {
+            $compte = Compte::findOrFail($request->recepteur);
+            $compte->balanceCharge = $compte->balanceCharge + $request->somme;
+            $compte->balanceActuel = $compte->balanceActuel + $request->somme;
+            $compte->save();
+            $t = Transaction::findOrFail($request->transaction);
+            $t->etat = 'paye';
+            $t->save();
+        }
         $charge = Charge::findOrFail($id);
         $mod = Modalite_de_paiement::where('modalitePaiement', $request->modalitePaiement)->first();
         $charge->modalitePaiement = $mod->id;
         $charge->NumeroCompte = $request->NumeroCompte;
         $charge->somme = $request->somme;
         $charge->etat = $request->etat;
+        $charge->date = date("Y-m-d", strtotime($request->date));
         $charge->save();
     }
     public function deleteAbonnement($id)

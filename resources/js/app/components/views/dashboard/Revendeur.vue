@@ -5,7 +5,7 @@
                 <div class="card">
                     <div class="card-header bg-primary text-white">Choisir un offre</div>
                     <div class="card-body">
-                        <form @submit="store">
+                        <form>
                             <div class="form-row">
                                 <div class="form-group col-12">
                                     <label for="email">{{ $t('Email') }}</label>
@@ -30,13 +30,20 @@
                                 <div class="form-group col-12">
                                     <label for="prod">{{ $t('Produit') }}</label>
                                     <select name="prod" id="prod" v-model="options.data.produit" class="form-control" required>
-                                        <option v-for="produit in produits" v-bind:key="produit.id" :value="produit.nom">{{produit.nom}} - {{produit.tarifVenteRevendeur}} DA</option>
+                                        <option v-for="produit in produits" v-bind:key="produit.id" :value="[produit.nom, produit.tarifVenteRevendeur]">{{produit.nom}} - {{produit.tarifVenteRevendeur}} DA</option>
                                     </select>
                                 </div>
                             </div>
-                                <div class="col-md-6">
-                                    <button type="submit" class="btn btn-primary">Confirmer la demande</button>
+                            <div class="form-row">
+                                <div class="form-group col-12">
+                                    <strong v-if="notfound" class="strong">
+                                        Vous n'avez pas un solde suffisant !!!
+                                    </strong>
                                 </div>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary" v-on:click="store">Confirmer la demande</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -52,6 +59,7 @@ import {FormMixin} from '../../../../core/mixins/form/FormMixin';
 export default {
     data(){
         return{
+            notfound: false,
             produits: [],
             options:{
                 url: actions.STORE,
@@ -72,12 +80,25 @@ export default {
             },
             store(e){
                 e.preventDefault();
-                axios.post(
-                    this.options.url,this.options.data
-                    ).then(function(response){
-                        window.location.replace('/dashboard/revendeur');
-                    });
+                this.axiosGet('/balance').then(response=>{
+                    let balance = response.data;
+                    if (balance < this.options.data.produit[1]) this.notfound = true;
+                    else{
+                        this.notfound = false;
+                        axios.post(
+                            this.options.url,this.options.data
+                            ).then(function(response){
+                                window.location.replace('/dashboard/revendeur');
+                            });
+
+                    }
+                });
             }
         }
 }
 </script>
+<style>
+.strong{
+    color: red;
+}
+</style>

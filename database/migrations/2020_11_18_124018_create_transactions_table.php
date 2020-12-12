@@ -16,7 +16,6 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->time('heure');
             $table->double('montant');
             $table->unsignedBigInteger('idCompteRecepteur');
             $table->unsignedBigInteger('idCompteEmeteur');
@@ -24,7 +23,6 @@ class CreateTransactionsTable extends Migration
             $table->double('soldeAvant');
             $table->double('soldeApres');
             $table->unsignedBigInteger('modalitePaiement');
-            $table->string('numeroCompte')->nullable();
             $table->string('etat');
             $table->timestamps();
             $table->foreign("idCompteRecepteur")->references("id")->on("comptes")->onDelete("cascade");

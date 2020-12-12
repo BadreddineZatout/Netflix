@@ -79,7 +79,6 @@ export default {
                 axios.post(
                     this.options.url,this.options.data
                     ).then(function(response){
-                        console.log(response.data);
                         window.location.replace('/dashboard/charge');
                     });
             }

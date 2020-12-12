@@ -20,9 +20,12 @@ class CreateChargesTable extends Migration
             $table->string('NumeroCompte')->nullable();
             $table->double('somme');
             $table->string('etat');
+            $table->date('date');
+            $table->unsignedBigInteger('transaction');
             $table->timestamps();
             $table->foreign('compte')->references('id')->on('comptes')->onDelete('cascade');
             $table->foreign("modalitePaiement")->references("id")->on("modalite_de_paiements")->onDelete("cascade");
+            $table->foreign("transaction")->references("id")->on("transactions")->onDelete("cascade");
         });
     }
 

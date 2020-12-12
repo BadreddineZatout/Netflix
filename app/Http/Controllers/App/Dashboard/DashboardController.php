@@ -266,7 +266,6 @@ class DashboardController extends Controller
         $t->idCompteEmeteur = $emeteur[0]->id;
         $t->idCompteRecepteur = $recepteur[0]->id;
         $t->date = $request->date;
-        $t->heure = $request->heure;
         $t->montant = intval($request->montant);
         $t->modalitePaiement = $modalite[0]->id;
         $t->etat = $request->etat;

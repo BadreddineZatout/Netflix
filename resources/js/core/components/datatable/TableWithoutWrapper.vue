@@ -287,13 +287,26 @@
             dataTableInit() {
                 if (this.reloadSearch){
                     this.search = this.searchValue;
-                    if (this.options.name=='PannesTable' || this.options.name=='AbonnementsTable'){
-                        this.dataSet = this.searchEmails(this.originalDataSet,this.search);
-                    }else if (this.options.name=='Users'){
-                        this.dataSet = this.searchUsers(this.originalDataSet,this.search);
-                    }else if (this.options.name=='Roles'){
-                        this.dataSet = this.searchRoles(this.originalDataSet,this.search);
-                    }else this.dataSet = this.searchEmeteurs(this.originalDataSet,this.search);
+                    switch (this.options.name) {
+                        case 'PannesTable':
+                            this.dataSet = this.searchEmails(this.originalDataSet,this.search);
+                            break;
+                        case 'AbonnementsTable':
+                            this.dataSet = this.searchEmails(this.originalDataSet,this.search);
+                            break;
+                        case 'Users':
+                            this.dataSet = this.searchUsers(this.originalDataSet,this.search);
+                            break;
+                        case 'Roles':
+                            this.dataSet = this.searchRoles(this.originalDataSet,this.search);
+                            break;
+                        case 'ChargesTable':
+                            this.dataSet = this.searchRecepteurs(this.originalDataSet, this.search);
+                            break;
+                        case 'TransactionsTable':
+                            this.dataSet = this.searchEmeteurs(this.originalDataSet,this.search);
+                            break;
+                    }
                     this.reloadSearch = false;
                 }
                 else if(this.reloadFilter){

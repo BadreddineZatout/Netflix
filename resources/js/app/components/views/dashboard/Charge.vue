@@ -10,7 +10,8 @@
                                 <div class="form-group col-12">
                                     <label for="prod">{{ $t('Modalite de Paiement') }}</label>
                                     <select name="prod" id="prod" v-model="options.data.modalite" class="form-control" required>
-                                        <option v-for="modalite in modalites" v-bind:key="modalite.id" :value="modalite.nom">{{modalite.modalitePaiement}}</option>
+                                        <option value="0">Choisissez la modalité voulue</option>
+                                        <option v-for="modalite in modalites" v-bind:key="modalite.id" :value="modalite.id">{{modalite.modalitePaiement}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -54,8 +55,11 @@ export default {
         return{
             modalites: [],
             options:{
-                url: actions.STORE,
-                data:{},
+                url: actions.STORE_CHARGES,
+                data:{
+                    numero: "",
+                    modalite: 0,
+                },
             }
         }
     },
@@ -75,7 +79,8 @@ export default {
                 axios.post(
                     this.options.url,this.options.data
                     ).then(function(response){
-                        window.location.replace('/dashboard/revendeur');
+                        console.log(response.data);
+                        window.location.replace('/dashboard/charge');
                     });
             }
         }

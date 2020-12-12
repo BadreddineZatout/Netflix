@@ -22,6 +22,7 @@ Route::get('default-dashboard-produits', [DashboardController::class, 'produits'
 Route::get('default-dashboard-pannes', [DashboardController::class, 'pannes']);
 Route::get('default-dashboard-modalites', [DashboardController::class, 'modalites']);
 Route::get('default-dashboard-comptes', [DashboardController::class, 'comptes']);
+Route::get('default-dashboard-charges', [DashboardController::class, 'charges']);
 Route::get('default-dashboard-wilayas', [WilayaController::class, 'getwilaya']);
 Route::get('default-dashboard-communes/communget={code}', [CommuneController::class, 'getCommune']);
 
@@ -31,6 +32,7 @@ Route::post('/pannes', [DashboardController::class, 'storePannes']);
 Route::post('/modalites', [DashboardController::class, 'storeModalites']);
 Route::post('/comptes', [DashboardController::class, 'storeComptes']);
 Route::post('/produits', [DashboardController::class, 'storeProduit']);
+Route::post('/charges', [DashboardController::class, 'storeCharge']);
 
 Route::patch('/update-abonnement/{id}', [DashboardController::class, 'updateAbonnement']);
 Route::patch('/update-transaction/{id}', [DashboardController::class, 'updateTransaction']);
@@ -38,6 +40,7 @@ Route::patch('/update-panne-abonnement/{id}', [DashboardController::class, 'upda
 Route::patch('/update-panne/{id}', [DashboardController::class, 'updatePanne']);
 Route::patch('/update-modalite/{id}', [DashboardController::class, 'updateModalite']);
 Route::patch('/update-produit/{id}', [DashboardController::class, 'updateProduit']);
+Route::patch('/update-charge/{id}', [DashboardController::class, 'updateCharge']);
 
 Route::delete('/delete-abonnement/{id}', [DashboardController::class, 'deleteAbonnement']);
 Route::delete('/delete-transaction/{id}', [DashboardController::class, 'deleteTransaction']);
@@ -45,4 +48,5 @@ Route::delete('/delete-panne-abonnement/{id}', [DashboardController::class, 'del
 Route::delete('/delete-panne/{id}', [DashboardController::class, 'deletePanne']);
 Route::delete('/delete-modalite/{id}', [DashboardController::class, 'deleteModalite']);
 Route::delete('/delete-produit/{id}', [DashboardController::class, 'deleteProduit']);
+Route::delete('/delete-charge/{id}', [DashboardController::class, 'deleteCharge']);
 

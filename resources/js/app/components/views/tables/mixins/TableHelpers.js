@@ -47,6 +47,11 @@ export const TableHelpers = {
                         key: 'recepteur'
                     },
                     {
+                        title: this.$t('Type Transaction'),
+                        type: 'text',
+                        key: 'type'
+                    },
+                    {
                         title: this.$t('Date'),
                         type: 'text',
                         key: 'date'

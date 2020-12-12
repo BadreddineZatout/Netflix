@@ -20,6 +20,7 @@ class CreateTransactionsTable extends Migration
             $table->double('montant');
             $table->unsignedBigInteger('idCompteRecepteur');
             $table->unsignedBigInteger('idCompteEmeteur');
+            $table->string('type');
             $table->double('soldeAvant');
             $table->double('soldeApres');
             $table->unsignedBigInteger('modalitePaiement');

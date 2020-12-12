@@ -4,6 +4,7 @@ namespace App\Http\Controllers\App\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Abonnement;
+use App\Models\Charge;
 use App\Models\Compte;
 use App\Models\Core\Auth\User;
 use App\Models\Modalite_de_paiement;
@@ -33,7 +34,7 @@ class DashboardController extends Controller
     }
     public function transactions()
     {
-        return Transaction::select('transactions.id', 'e.nom AS emeteur', 'r.nom AS recepteur', 'transactions.date', 'transactions.heure', 'transactions.montant', 'm.modalitePaiement', 'transactions.etat')->join('comptes AS r', 'r.id', '=', 'transactions.idCompteRecepteur')->join('comptes AS e', 'e.id', '=', 'transactions.idCompteEmeteur')->join('modalite_de_paiements AS m', 'm.id', '=', 'transactions.modalitePaiement')->get();
+        return Transaction::select('transactions.id', 'e.nom AS emeteur', 'r.nom AS recepteur', 'transactions.type', 'transactions.date', 'transactions.heure', 'transactions.montant', 'm.modalitePaiement', 'transactions.etat')->join('comptes AS r', 'r.id', '=', 'transactions.idCompteRecepteur')->join('comptes AS e', 'e.id', '=', 'transactions.idCompteEmeteur')->join('modalite_de_paiements AS m', 'm.id', '=', 'transactions.modalitePaiement')->get();
     }
     public function pannesAbonnement()
     {
@@ -54,6 +55,10 @@ class DashboardController extends Controller
     public function comptes()
     {
         return Compte::all();
+    }
+    public function charges()
+    {
+        return Charge::all();
     }
     public function getAbonnement($email, $pdw)
     {
@@ -150,6 +155,18 @@ class DashboardController extends Controller
         $a->save();
         $pa->save();
     }
+    public function storeCharge(Request $request)
+    {
+        $user = Auth::user();
+        $compte = Compte::where('email', $user->email)->first();
+        $charge = new Charge();
+        $charge->compte = $compte->id;
+        $charge->modalitePaiement = $request->modalite;
+        $charge->NumeroCompte = $request->numero;
+        $charge->somme = $request->somme;
+        $charge->etat = "pending";
+        $charge->save();
+    }
     public function updatePanneAbonnement(Request $request, $id)
     {
         $pa = PanneAbonnement::findOrfail($id);
@@ -223,6 +240,10 @@ class DashboardController extends Controller
         $produit->tarifAchatDinar = $request->tarifAchatDinar;
         $produit->save();
     }
+    public function updateCharge(Request $request, $id)
+    {
+
+    }
     public function deleteAbonnement($id)
     {
         Abonnement::destroy($id);
@@ -246,5 +267,9 @@ class DashboardController extends Controller
     public function deleteProduit($id)
     {
         Produit::destroy($id);
+    }
+    public function deleteCharge($id)
+    {
+        Charge::destroy($id);
     }
 }

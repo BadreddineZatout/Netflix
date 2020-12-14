@@ -20,9 +20,11 @@ class CreatePanneAbonnementsTable extends Migration
             $table->time('heure');
             $table->unsignedBigInteger('panne');
             $table->string('Etat'); //panne ou reglé
+            $table->unsignedBigInteger('revendeur');
             $table->timestamps();
             $table->foreign("abonnement")->references("id")->on("abonnements")->onDelete("cascade");
             $table->foreign("panne")->references("id")->on("pannes")->onDelete("cascade");
+            $table->foreign("revendeur")->references("id")->on("users")->onDelete("cascade");
         });
     }
 

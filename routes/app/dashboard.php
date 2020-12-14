@@ -51,3 +51,16 @@ Route::delete('/delete-modalite/{id}', [DashboardController::class, 'deleteModal
 Route::delete('/delete-produit/{id}', [DashboardController::class, 'deleteProduit']);
 Route::delete('/delete-charge/{id}', [DashboardController::class, 'deleteCharge']);
 
+//Default page informations
+
+Route::get('/default/balance', [DashboardController::class, 'getBalance']);
+Route::get('/default/abonnement', [DashboardController::class, 'getAbonnPending']);
+Route::get('/default/panne', [DashboardController::class, 'getPannePending']);
+Route::get('/default/user', [DashboardController::class, 'getUser']);
+Route::get('/default/abonntotal', [DashboardController::class, 'getAbonnTotal']);
+Route::get('/default/transtotal', [DashboardController::class, 'getTransTotal']);
+Route::get('/default/produit', [DashboardController::class, 'getProduit']);
+Route::get('/default/panneuser', [DashboardController::class, 'getPanneUser']);
+Route::get('/default/transuser', [DashboardController::class, 'getTransUser']);
+Route::get('/default/panneadmin', [DashboardController::class, 'getPanneAdmin']);
+Route::get('/default/abonnadmin', [DashboardController::class, 'getAbonnAdmin']);

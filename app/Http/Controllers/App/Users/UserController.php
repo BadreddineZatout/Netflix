@@ -5,6 +5,7 @@ namespace App\Http\Controllers\App\Users;
 use App\Exceptions\GeneralException;
 use App\Filters\Core\UserFilter;
 use App\Http\Controllers\Controller;
+use App\Models\Compte;
 use App\Models\Core\Auth\User;
 use App\Notifications\Core\User\UserNotification;
 use App\Services\Core\Auth\UserService;
@@ -84,6 +85,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $id = Compte::where('email', Auth::user()->email)->first()->id;
+        Compte::destroy($id);
         if ($user->delete()) {
             return deleted_responses('user');
         }

@@ -2,7 +2,7 @@
     <div class="position-relative">
         <div class="content-wrapper">
             <app-breadcrumb :page-title="$t('default')" :directory="$t('dashboard')" :icon="'pie-chart'"/>
-            <div class="row">
+            <div class="row" v-if="data.revendeur">
                 <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-3">
                     <app-widget class="mb-primary"
                                 :type="'app-widget-with-icon'"
@@ -25,7 +25,7 @@
                                 :icon="'pie-chart'"/>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" v-if="data.admin">
                 <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-3">
                     <app-widget class="mb-primary"
                                 :type="'app-widget-with-icon'"
@@ -55,16 +55,16 @@
                                 :icon="'pie-chart'"/>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" v-if="data.revendeur">
                 <advance-datatable title="Pannes" :options = "options_panne" :typeTable="0"></advance-datatable>
             </div>
-            <div class="row">
+            <div class="row" v-if="data.revendeur">
                 <advance-datatable title="Transactions" :options = "options_trans" :typeTable="1"></advance-datatable>
             </div>
-            <div class="row">
+            <div class="row" v-if="data.tables_admin">
                 <advance-datatable title="Pannes" :options = "options_panne_admin" :typeTable="0"></advance-datatable>
             </div>
-            <div class="row">
+            <div class="row" v-if="data.tables_admin">
                 <advance-datatable title="Abonnements" :options = "options_abonn" :typeTable="2"></advance-datatable>
             </div>
         </div>
@@ -81,6 +81,9 @@
 
         mixins: [FormMixin,DashboardPreloader],
         name: "Dashboard",
+        props:{
+            data: {}
+        },
         data() {
             return {
                 info: {},

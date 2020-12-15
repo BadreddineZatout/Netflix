@@ -131,7 +131,7 @@ class DashboardController extends Controller
     }
     public function getPanneAdmin()
     {
-        return PanneAbonnement::where('Etat', 'pending')->get();
+        return PanneAbonnement::select('panne_abonnements.id', 'abonnements.email', 'panne_abonnements.date', 'panne_abonnements.heure', 'pannes.panne', 'panne_abonnements.Etat')->where('panne_abonnements.Etat', 'pending')->join('abonnements', 'abonnements.id', '=', 'panne_abonnements.abonnement')->join('pannes', 'pannes.id', '=', 'panne_abonnements.panne')->get();
     }
     public function getAbonnAdmin()
     {
@@ -178,7 +178,7 @@ class DashboardController extends Controller
         $t->type = 'Abonnement';
         $t->soldeAvant = $compte->balanceActuel;
         $t->soldeApres = $t->soldeAvant - $request->produit[1];
-        $mod = Charge::where('id', $user->id)->latest('id')->first()->modalitePaiement;
+        $mod = Charge::where('compte', $compte->id)->latest('id')->first()->modalitePaiement;
         $t->modalitePaiement = $mod;
         $t->etat = 'non paye';
         $t->save();
@@ -303,11 +303,11 @@ class DashboardController extends Controller
 
         if ($request->oldresultatcreation=="pending" && $request->resultatcreation=="created")
         {
-            $compte = Compte::where('email', Auth::user()->email)->first();
+            $t = Transaction::findOrFail($request->transaction);
+            $compte = Compte::where('id', $t->idCompteEmeteur)->first();
             $compte->totalAchatAbonnement = $compte->totalAchatAbonnement + $produit->tarifVenteRevendeur;
             $compte->balanceActuel = $compte->balanceActuel - $produit->tarifVenteRevendeur;
             $compte->save();
-            $t = Transaction::findOrFail($request->transaction);
             $t->etat = 'paye';
             $t->save();
         }

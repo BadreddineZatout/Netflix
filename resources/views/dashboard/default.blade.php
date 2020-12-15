@@ -1,7 +1,8 @@
 @php
     $data = [
-        'user' => Auth::user(),
-        'permission' => authorize_any(['view_default','view_pannes','view_transactions','view_abonnements','view_revendeur','view_parametrage']),
+        'revendeur' => authorize_any(['view_info_revendeur']) && !$is_admin,
+        'admin' => authorize_any(['view_info_admin']),
+        'tables_admin' => authorize_any(['view_table_admin']),
     ]
 @endphp
 

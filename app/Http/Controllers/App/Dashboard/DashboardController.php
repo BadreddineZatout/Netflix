@@ -384,6 +384,18 @@ class DashboardController extends Controller
         $charge->date = date("Y-m-d", strtotime($request->date));
         $charge->save();
     }
+    public function updateUser(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $compte = Compte::where('email', $user->email)->first();
+
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->save();
+        
+        $compte->nom = $request->first_name . " " . $request->last_name;
+        $compte->save();
+    }
 
                                                 /******************************DELET Requests********************************/
 
@@ -414,5 +426,12 @@ class DashboardController extends Controller
     public function deleteCharge($id)
     {
         Charge::destroy($id);
+    }
+    public function deleteUser($id)
+    {
+        $user = User::findorFail($id);
+        $compte = Compte::where('email', $user->email)->first();
+        $user->delete();
+        Compte::destroy($compte->id);
     }
 }

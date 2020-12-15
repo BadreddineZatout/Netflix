@@ -42,6 +42,7 @@ Route::patch('/update-panne/{id}', [DashboardController::class, 'updatePanne']);
 Route::patch('/update-modalite/{id}', [DashboardController::class, 'updateModalite']);
 Route::patch('/update-produit/{id}', [DashboardController::class, 'updateProduit']);
 Route::patch('/update-charge/{id}', [DashboardController::class, 'updateCharge']);
+Route::patch('/update-user/{id}', [DashboardController::class, 'updateUser']);
 
 Route::delete('/delete-abonnement/{id}', [DashboardController::class, 'deleteAbonnement']);
 Route::delete('/delete-transaction/{id}', [DashboardController::class, 'deleteTransaction']);
@@ -50,6 +51,7 @@ Route::delete('/delete-panne/{id}', [DashboardController::class, 'deletePanne'])
 Route::delete('/delete-modalite/{id}', [DashboardController::class, 'deleteModalite']);
 Route::delete('/delete-produit/{id}', [DashboardController::class, 'deleteProduit']);
 Route::delete('/delete-charge/{id}', [DashboardController::class, 'deleteCharge']);
+Route::delete('/delete-user/{id}', [DashboardController::class, 'deleteUser']);
 
 //Default page informations
 

@@ -53,15 +53,17 @@
                 modalTitle: this.$t('edit_user'),
             }
         },
+        props:{
+            url: String,
+        },
         created() {
             this.inputs = this.userAndRoles.rowData;
         },
         methods: {
             submit() {
-                this.save(this.inputs);
+                this.saveEdit(this.url, this.inputs);
             },
             afterSuccess(response) {
-                this.$toastr.s(response.data.message);
                 this.reLoadTable();
             },
         },

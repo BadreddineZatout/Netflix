@@ -70,12 +70,7 @@ export const FormMixin = {
          * save edited data 
          */
         saveEdit(url, submitData) {
-            let reqType = "";
-            if (this.selectedUrl) {
-                reqType = "patch";
-            } else {
-                reqType = "post";
-            }
+            let reqType = "patch";
             this.submitFromFixin(reqType, url, submitData);
         },
 
@@ -112,7 +107,6 @@ export const FormMixin = {
                 }
 
                 axioscall.then((response) => {
-                    console.log(response.data);
                     //trigger after success
                     if (this.isFunction(this.afterSuccess))
                         this.afterSuccess(response);

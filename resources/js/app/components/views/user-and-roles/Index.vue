@@ -6,12 +6,6 @@
             </div>
             <div class="col-sm-12 col-md-6">
                 <div class="float-md-right mb-3 mb-sm-3 mb-md-0">
-                    <!-- <button type="button"
-                            class="btn btn-success btn-with-shadow mr-2"
-                            data-toggle="modal"
-                            @click="operationForUserInvitation">
-                        {{ $t('invite_users') }}
-                    </button> -->
                     <button type="button"
                             class="btn btn-primary btn-with-shadow"
                             data-toggle="modal"
@@ -35,6 +29,7 @@
                                @close-modal="closeInviteModal"/>
 
         <user-modal v-if="userAndRoles.users.isUserModalActive"
+                    :url="selectedUrl"
                     @close-modal="closeUserModal"/>
 
         <manage-users-modal v-if="userAndRoles.users.isManageUsersModalActive"
@@ -113,12 +108,13 @@
 
                 } else if (actionObj.title == this.$t('delete')) {
 
-                    this.confirmation.url = `${actions.USERS}/${rowData.id}`;
+                    this.confirmation.url = `/delete-user/${rowData.id}`;
+                    console.log(this.confirmation.url);
                     this.confirmation.tableId = this.userAndRoles.users.tableId;
                     this.openConfirmationModal();
 
                 } else if(actionObj.title == this.$t('edit')) {
-                    this.selectedUrl = `${actions.UPDATE_USER_NAME}/${rowData.id}`;
+                    this.selectedUrl = `/update-user/${rowData.id}`;
                     this.openUserModal();
 
                 } else if (actionObj.title == this.$t('active')) {

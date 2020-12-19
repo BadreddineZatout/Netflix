@@ -112,6 +112,11 @@ export const TableHelpers = {
                         type: 'text',
                         key: 'etat'
                     },
+                    {
+                        title: this.$t('temps resté'),
+                        type: 'text',
+                        key: 'temps_reste'
+                    },
                 ],
 
                 //PanneTable

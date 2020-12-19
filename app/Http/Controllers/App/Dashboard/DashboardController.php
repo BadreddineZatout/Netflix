@@ -304,6 +304,10 @@ class DashboardController extends Controller
         $d = $request->dateDebut . ' +' . $d . $tmp;
         $enddate = date("Y-m-d", strtotime($d));
 
+        if ($request->oldresultatcreation=="created" && $request->resultatcreation=="annule")
+        {
+            return null;
+        }
         if ($request->oldresultatcreation=="pending" && $request->resultatcreation=="annule")
         {
             $t = Transaction::findOrFail($request->transaction);

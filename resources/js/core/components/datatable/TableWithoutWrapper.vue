@@ -383,6 +383,9 @@
             configureTableForPagination(response) {
                 this.dataSet = response;
                 this.originalDataSet = response;
+                for (let i=0; i< this.dataSet.length; i++){
+                    this.dataSet[i].temps_reste = parseInt(((new Date(this.dataSet[i].datefin).getTime()/1000  - Date.now()/1000)/3600)/24) + ' Jours';
+                }
             },
 
             /**

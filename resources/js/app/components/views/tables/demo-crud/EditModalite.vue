@@ -20,6 +20,16 @@
                                :placeholder="rowData.modalitePaiement"
                                :required="true"/>
                 </div>
+                <div class="form-group row align-items-center">
+                    <label for="inputs_num" class="col-sm-3 mb-0">
+                        {{ $t('Numero du Compte') }}
+                    </label>
+                    <app-input id="inputs_num"
+                               class="col-sm-9"
+                               type="text"
+                               v-model="inputs.NumeroCompte"
+                               :placeholder="rowData.NumeroCompte"/>
+                </div>
             </form>
         </template>
     </dashboard-modal>

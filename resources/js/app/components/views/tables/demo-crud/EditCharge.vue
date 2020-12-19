@@ -11,7 +11,7 @@
                     <label class="col-sm-3 mb-0">{{ $t('Modalite de Paiement') }}</label>
                     <div class="col-sm-9">
                         <select name="mod" id="prod" v-model="inputs.modalitePaiement" class="form-control" required>
-                            <option v-for="modalite in modalites" v-bind:key="modalite.id" :value="modalite.modalitePaiement">{{modalite.modalitePaiement}}</option>
+                            <option v-for="modalite in modalites" v-bind:key="modalite.id" :value="modalite.modalitePaiement" v-on:click="showNumero(modalite.NumeroCompte)">{{modalite.modalitePaiement}}</option>
                         </select>
                     </div>
                 </div>
@@ -24,7 +24,8 @@
                                type="text"
                                v-model="inputs.NumeroCompte"
                                :placeholder="rowData.NumeroCompte"
-                               :required="false"/>
+                               :required="false"
+                               :disabled="true"/>
                 </div>
                 <div class="form-group row align-items-center">
                     <label for="inputs_somme" class="col-sm-3 mb-0">
@@ -96,6 +97,9 @@
             }
         },
         methods: {
+            showNumero(NumeroCompte){
+                this.inputs.NumeroCompte = NumeroCompte;
+            },
             getModalites(){
                 let url = 'default-dashboard-modalites';
                     this.axiosGet(url).then(response =>{

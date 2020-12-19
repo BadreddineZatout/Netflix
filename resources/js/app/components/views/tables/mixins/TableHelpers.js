@@ -137,6 +137,11 @@ export const TableHelpers = {
                         type:'text',
                         key: 'modalitePaiement'
                     },
+                    {
+                        title: this.$t('Numero du Compte'),
+                        type:'text',
+                        key: 'NumeroCompte'
+                    },
                 ],
 
                 //ProduitTable

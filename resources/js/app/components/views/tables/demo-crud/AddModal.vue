@@ -62,6 +62,8 @@
                         <label class="mr-3" for="rc1">Pending</label>
                         <input type="radio" name="rc" id="rc2" value="created" v-model="inputs.resultatcreation">
                         <label class="mr-3" for="rc2">Created</label>
+                        <input type="radio" name="rc" id="rc3" value="annule" v-model="inputs.resultatcreation">
+                        <label class="mr-3" for="rc3">Annulé</label>
                     </div>
                 </div>
                 <div class="form-group row align-items-center">

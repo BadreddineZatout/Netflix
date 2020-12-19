@@ -16,6 +16,7 @@ class CreateModaliteDePaiementsTable extends Migration
         Schema::create('modalite_de_paiements', function (Blueprint $table) {
             $table->id();
             $table->string('modalitePaiement');
+            $table->string('NumeroCompte')->nullable();
             $table->timestamps();
         });
     }

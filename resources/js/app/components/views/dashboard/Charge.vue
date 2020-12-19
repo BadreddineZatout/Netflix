@@ -11,7 +11,7 @@
                                     <label for="prod">{{ $t('Modalite de Paiement') }}</label>
                                     <select name="prod" id="prod" v-model="options.data.modalite" class="form-control" required>
                                         <option value="0">Choisissez la modalité voulue</option>
-                                        <option v-for="modalite in modalites" v-bind:key="modalite.id" :value="modalite.id">{{modalite.modalitePaiement}}</option>
+                                        <option v-for="modalite in modalites" v-bind:key="modalite.id" :value="modalite.id" v-on:click="showNumero(modalite.NumeroCompte)">{{modalite.modalitePaiement}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -22,6 +22,7 @@
                                                v-model="options.data.numero"
                                                :placeholder="$t('Numero du compte CCP ou Paysera ...')"
                                                :required="false"
+                                               :disabled="true"
                                     />
                                 </div>
                             </div>
@@ -73,6 +74,9 @@ export default {
                     this.axiosGet(url).then(response =>{
                         this.modalites = response.data;    
                     });
+            },
+            showNumero(NumeroCompte){
+                this.options.data.numero = NumeroCompte;
             },
             store(e){
                 e.preventDefault();

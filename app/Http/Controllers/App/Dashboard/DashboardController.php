@@ -41,7 +41,7 @@ class DashboardController extends Controller
         return Transaction::select('transactions.id', 'e.nom AS emeteur', 'e.id AS idE', 'r.nom AS recepteur', 'r.id AS idR', 'transactions.type', 'transactions.date', 'transactions.montant', 'm.modalitePaiement', 'transactions.etat')
                             ->join('comptes AS r', 'r.id', '=', 'transactions.idCompteRecepteur')
                             ->join('comptes AS e', 'e.id', '=', 'transactions.idCompteEmeteur')
-                            ->join('modalite_de_paiements AS m', 'm.id', '=', 'transactions.modalitePaiement')
+                            ->leftJoin('modalite_de_paiements AS m', 'm.id', '=', 'transactions.modalitePaiement')
                             ->get();
     }
     public function pannesAbonnement()
@@ -126,7 +126,7 @@ class DashboardController extends Controller
                             ->orWhere('transactions.idCompteRecepteur', $id)
                             ->join('comptes AS r', 'r.id', '=', 'transactions.idCompteRecepteur')
                             ->join('comptes AS e', 'e.id', '=', 'transactions.idCompteEmeteur')
-                            ->join('modalite_de_paiements AS m', 'm.id', '=', 'transactions.modalitePaiement')
+                            ->leftJoin('modalite_de_paiements AS m', 'm.id', '=', 'transactions.modalitePaiement')
                             ->get();
     }
     public function getPanneAdmin()
@@ -178,14 +178,16 @@ class DashboardController extends Controller
         $t->type = 'Abonnement';
         $t->soldeAvant = $compte->balanceActuel;
         $t->soldeApres = $t->soldeAvant - $request->produit[1];
-        $mod = Charge::where('compte', $compte->id)->latest('id')->first()->modalitePaiement;
-        $t->modalitePaiement = $mod;
         $t->etat = 'non paye';
         $t->save();
         $t = Transaction::select('id')->latest('id')->first();
 
         $d = $request->produit[0];
         $produit = Produit::where('nom', $d)->first(); 
+        $compte->totalAchatAbonnement = $compte->totalAchatAbonnement + $produit->tarifVenteRevendeur;
+        $compte->balanceActuel = $compte->balanceActuel - $produit->tarifVenteRevendeur;
+        $compte->save();
+
         $abonn = new Abonnement();
         $startdate = date("Y-m-d");
         $d = $produit->duree;
@@ -217,6 +219,7 @@ class DashboardController extends Controller
     public function storeModalites(Request $request){
         $modpaie = new Modalite_de_paiement();
         $modpaie->modalitePaiement = $request->modalitePaiement;
+        $modpaie->NumeroCompte = $request->NumeroCompte;
         $modpaie->save();
     }
     public function storeProduit(Request $request)
@@ -301,14 +304,14 @@ class DashboardController extends Controller
         $d = $request->dateDebut . ' +' . $d . $tmp;
         $enddate = date("Y-m-d", strtotime($d));
 
-        if ($request->oldresultatcreation=="pending" && $request->resultatcreation=="created")
+        if ($request->oldresultatcreation=="pending" && $request->resultatcreation=="annule")
         {
             $t = Transaction::findOrFail($request->transaction);
             $compte = Compte::where('id', $t->idCompteEmeteur)->first();
-            $compte->totalAchatAbonnement = $compte->totalAchatAbonnement + $produit->tarifVenteRevendeur;
-            $compte->balanceActuel = $compte->balanceActuel - $produit->tarifVenteRevendeur;
+            $compte->totalAchatAbonnement = $compte->totalAchatAbonnement - $produit->tarifVenteRevendeur;
+            $compte->balanceActuel = $compte->balanceActuel + $produit->tarifVenteRevendeur;
             $compte->save();
-            $t->etat = 'paye';
+            $t->etat = 'annule';
             $t->save();
         }
 

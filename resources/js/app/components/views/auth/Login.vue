@@ -63,7 +63,7 @@
                         <div class="form-row">
                             <div class="col-12">
                                 <p class="text-center mt-5">
-                                    {{ $t('copyright_text') + configData.company_name }}
+                                    {{ $t('copyright_text') + "TRex IT" }}
                                 </p>
                             </div>
                         </div>
@@ -89,7 +89,7 @@
         },
         data() {
             return {
-                login: {email: 'admin@demo.com', password: '123456'},
+                login: {email: '', password: ''},
                 options:{
                     url: actions.DECLARE_PANNE,
                     data:{},

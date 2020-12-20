@@ -2,8 +2,7 @@
     <div class="container-fluid p-0">
         <div class="row">
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-8">
-                <div class="back-image"
-                     :style="'background-image: url('+configData.company_banner+')'">
+                <div class="back-image">
                 </div>
             </div>
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-4 pl-md-0">
@@ -133,7 +132,7 @@
                         <div class="form-row">
                             <div class="col-12">
                                 <p class="text-center mt-5">
-                                    {{ $t('copyright_text') + configData.company_name }}
+                                    {{ $t('copyright_text') + "TRex IT" }}
                                 </p>
                             </div>
                         </div>
@@ -204,3 +203,8 @@
 
     }
 </script>
+<style>
+    .back-image {
+        background-image: url("E:/Private Stuff/photo/50.jpg");
+    }
+</style>

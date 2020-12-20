@@ -270,9 +270,9 @@
                 this.preloader = true;
             },
             submit() {
-                let formData = new FormData;
+                let formData = {};
                 for (const [key, value] of Object.entries(this.appSettings)) {
-                    formData.append(key, value);
+                    formData[key] = value;
                 }
                 this.save(formData);
             },

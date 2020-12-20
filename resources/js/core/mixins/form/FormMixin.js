@@ -108,6 +108,7 @@ export const FormMixin = {
 
                 axioscall.then((response) => {
                     //trigger after success
+                    console.log(response.data);
                     if (this.isFunction(this.afterSuccess))
                         this.afterSuccess(response);
 

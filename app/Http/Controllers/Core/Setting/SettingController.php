@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Core\Setting;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Core\Setting\SettingRequest;
+use App\Models\Core\Setting\Setting;
 use App\Notifications\Core\Settings\SettingsNotification;
 use App\Services\Core\Setting\SettingService;
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
@@ -45,18 +47,20 @@ class SettingController extends Controller
      * @param SettingRequest $request
      * @return array
      */
-    public function update(SettingRequest $request)
+    public function update(Request $request)
     {
-        $this->service->update();
+        $s = Setting::where('id', 1)->get()->first();
+        $s->value = $request->company_name;
+        $s->save();
+        return $s;
+        // notify()
+        //     ->on('settings_updated')
+        //     ->with(trans('default.general_settings'))
+        //     ->send(SettingsNotification::class);
 
-        notify()
-            ->on('settings_updated')
-            ->with(trans('default.general_settings'))
-            ->send(SettingsNotification::class);
-
-        return updated_responses('settings', [
-            'settings' => $this->service->getFormattedSettings()
-        ]);
+        // return updated_responses('settings', [
+        //     'settings' => $this->service->getFormattedSettings()
+        // ]);
     }
 
 

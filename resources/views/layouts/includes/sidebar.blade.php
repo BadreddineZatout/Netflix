@@ -275,18 +275,18 @@
            'url' => '/users-and-roles',
            'permission' => authorize_any(['view_users', 'view_roles', 'invite_user', 'create_roles']),
         ],
-        // [
-        //    'icon' => 'settings',
-        //    'name' => trans('custom.settings'),
-        //    'url' => '/app-setting',
-        //    'permission' => authorize_any(
-        //    [
-        //         'view_settings', 'update_settings', 'view_delivery_settings',
-        //         'update_delivery_settings', 'view_sms_settings', 'update_sms_settings', 'view_recaptcha_settings',
-        //         'view_notification_settings', 'update_notification_settings', 'update_notification_templates',
-        //         'view_notification_templates'
-        //    ])
-        // ],
+        [
+           'icon' => 'settings',
+           'name' => trans('custom.settings'),
+           'url' => '/app-setting',
+           'permission' => authorize_any(
+           [
+                'view_settings', 'update_settings', 'view_delivery_settings',
+                'update_delivery_settings', 'view_sms_settings', 'update_sms_settings', 'view_recaptcha_settings',
+                'view_notification_settings', 'update_notification_settings', 'update_notification_templates',
+                'view_notification_templates'
+           ])
+        ],
     ];
 @endphp
 

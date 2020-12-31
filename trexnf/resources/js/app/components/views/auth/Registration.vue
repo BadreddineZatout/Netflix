@@ -85,7 +85,7 @@
                                 <app-input type="text"
                                            v-model="user.adresse"
                                            :placeholder="$t('enter adresse')"
-                                           :require     d="true"
+                                           :required="true"
                                 />
                             </div>
                         </div>
@@ -95,11 +95,10 @@
                                 <label for="user_password">{{ $t('password') }}</label>
                                 <app-input type="password"
                                            v-model="user.password"
-                                           :specialValidation="true"
+                                           :specialValidation="false"
                                            :placeholder="$t('enter_your_password')"
                                            :required="true"
                                 />
-                                <PasswordWarning/>
                             </div>
                         </div>
                         <div class="form-row">
@@ -203,8 +202,3 @@
 
     }
 </script>
-<style>
-    .back-image {
-        background-image: url("E:/Private Stuff/photo/50.jpg");
-    }
-</style>
